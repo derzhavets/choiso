@@ -1,4 +1,65 @@
-<div class="input-group margin-bottom-sm">
-  <input class="form-control" type="text" placeholder="Email address">
-  <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
+  <div class="row">
+    <div class="col-lg-8">
+      <table class="table">
+        <thead class="thead-inverse">
+          <tr>
+            <th>Define your alternatives</th>
+            <th>How good are these for you?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="col-md-6">
+              <div class="input-group margin-bottom-sm">
+                <input class="form-control" type="text" placeholder="Type your alternative here">
+                <span class="input-group-addon"><i class="fa fa-pencil fa-fw"></i></span>
+              </div>      
+            </td>
+            <td style="line-height:34px;">Ok - Good - Great</td>
+          </tr>
+
+          <tr>
+            <td class="col-md-6">Study in Israeli Univ</td>
+            <td class="col-md-6">
+              <%= render 'layouts/evaluation' %>
+            <td>
+          </tr>  
+          <tr>
+            <td class="col-md-6">Study media in Chicago</td>
+            <td class="col-md-6">
+              <%= render 'layouts/evaluation' %>
+            <td>
+          </tr>
+          <tr>
+            <td class="col-md-6">Launch a start-up</td>
+            <td class="col-md-6">
+              <%= render 'layouts/evaluation' %>
+            </td>  
+          </tr>
+          <tr>
+            <td class="col-md-6"></td>
+            <td>
+              <%= link_to 'Ask to evaluate', root_path, :class => "btn btn-s btn-success" %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+<!-- Proposals -->    
+
+    <div class="col-lg-4">
+      <table class="table">
+        <thead>
+          <tr><th>Look at proposals</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Launch a startup with friends</td></tr>
+          <tr><td>Go travelling</td></tr>
+          <tr><td>Study Abroad</td></tr>
+          <tr><td><%= link_to 'Ask more proposals', root_path, :class => "btn btn-s btn-primary" %></td></tr>
+        </tbody>
+      </table>
+    </div>
 </div>
+
