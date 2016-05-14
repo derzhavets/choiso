@@ -1,0 +1,58 @@
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="panel panel-default devise-bs">
+          <div class="panel-heading">
+            <h4>Define your alternatives</h4>
+          </div>
+          <div class="panel-body"> 
+            <%= form_for @alternative, url: {action: "create"}, html: { role: "form" } do |t| %>
+              <div="form-group">
+                <div class="row">
+                  <div class="col-md-9" style="padding-right:6px; padding-left:10px;">
+                    <%= t.text_field :name, class: "form-control", placeholder: "Type it right here" %>
+                  </div>
+                  <div class="col-md-2" style="padding-left:0px;">
+                    <%= t.submit 'Add', class: "btn btn-primary" %>
+                  </div>  
+                </div>
+              </div>  
+            <% end %> 
+            <table class="table table-striped">
+              <tbody>
+                <% @alternatives.each do |alternative| %>
+                  <tr>
+                    <td><%= alternative.name %></td>
+                    <td>
+                      <%= link_to alternative_path(alternative), method: :delete, 
+                                  data: { confirm: 'Are you sure you want to delete this alternative and all its evaluations?' } do %>
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                      <% end %>
+                    </td>
+                  </tr>  
+                <% end %>  
+              </tbody>
+            </table>
+          </div>
+      </div>
+      
+  <!-- Proposals -->    
+      <div class="col-lg-4">
+        <div class="panel panel-default devise-bs">
+          <div class="panel-heading">
+            <h4>Look for proposals</h4>
+          </div>
+          <div class="panel-body">
+            <table class="table table-striped">
+              <tbody>
+                <tr><td>Launch a startup with friends</td></tr>
+                <tr><td>Go travelling</td></tr>
+                <tr><td>Study Abroad</td></tr>
+              </tbody>
+            </table>
+            <div align="center">
+              <%= link_to 'Ask more proposals', root_path, class: "btn btn-s btn-primary"%>
+            </div>
+          </div>
+        </div>
+      </div>  
+  </div>
