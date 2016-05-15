@@ -32,7 +32,7 @@ class AlternativesController < ApplicationController
 
     respond_to do |format|
       if @alternative.save
-        format.html { redirect_to alternatives_path, notice: 'Alternative was successfully created.' }
+        format.html { redirect_to alternatives_path, notice: 'Alternative was successfully added.' }
         format.json { render :show, status: :created, location: @alternative }
       else
         format.html { render :new }
@@ -60,7 +60,7 @@ class AlternativesController < ApplicationController
   def destroy
     @alternative.destroy
     respond_to do |format|
-      format.html { redirect_to alternatives_url, notice: 'Alternative was successfully destroyed.' }
+      format.html { redirect_to alternatives_url, notice: 'Alternative was successfully deleted.' }
       format.json { head :no_content }
     end
   end
