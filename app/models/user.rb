@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
   has_many :alternatives, dependent: :destroy
+  has_many :evaluations, :as => :rater
   
   def full_name
     return "#{first_name} #{last_name}".strip if (first_name || last_name)
