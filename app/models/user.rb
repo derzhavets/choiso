@@ -10,4 +10,8 @@ class User < ActiveRecord::Base
     return "#{first_name} #{last_name}".strip if (first_name || last_name)
     "Anonymous"
   end
+  
+  def alternatives_by(user)
+    alternatives.where(proposed_by: user)
+  end  
 end
