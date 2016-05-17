@@ -8,10 +8,10 @@
         <%= form_for @alternative, url: {action: "create"}, html: { role: "form" } do |t| %>
           <div="form-group">
             <div class="row">
-              <div class="col-md-9" style="padding-right:6px; padding-left:10px;">
-                <%= t.text_field :name, class: "form-control", placeholder: "Type it right here" %>
+              <div class="col-md-9">
+                <%= t.text_field :name, class: "form-control", placeholder: "Type your alternative here" %>
               </div>
-              <div class="col-md-2" style="padding-left:0px;">
+              <div class="col-md-3 pull-right">
                 <%= t.submit 'Add', class: "btn btn-primary" %>
               </div>  
             </div>
