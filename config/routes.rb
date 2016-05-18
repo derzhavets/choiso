@@ -5,6 +5,11 @@ Rails.application.routes.draw do
   resources :alternatives
   devise_for :users, :controllers => { :registrations => "user/registrations" }
   get 'my_friends', to: 'users#my_friends'
+  resources :users, only: [:show]
+  resources :friendships
+  
+  get 'search_friends', to: 'users#search'
+  post 'add_friend', to: 'users#add_friend'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
