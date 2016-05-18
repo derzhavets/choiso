@@ -4,7 +4,7 @@ class AlternativesController < ApplicationController
   # GET /alternatives
   # GET /alternatives.json
   def index
-    @alternatives = Alternative.all.where(proposed_by: current_user.id)
+    @alternatives = Alternative.where(user_id: current_user.id)
     @alternative = Alternative.new
 
   end
@@ -54,13 +54,34 @@ class AlternativesController < ApplicationController
       end
     end
   end
-
+  
+  def add_proposal
+    @alternative = Alternative.new(alternative_params)
+    @alternative.proposed_by = current_user.id
+    
+    if @alternative.save
+      redirect_to propose_alternatives_to_path(alternative_params[:user_id]), notice: "Alternative was successfully proposed."
+    else
+      redirect_to propose_alternatives_to_path(alternative_params[:user_id]), flash[:error] = "There was an error with adding proposal. Fuck knows why. :("
+    end
+  end
+  
   # DELETE /alternatives/1
   # DELETE /alternatives/1.json
   def destroy
     @alternative.destroy
     respond_to do |format|
       format.html { redirect_to alternatives_url, notice: 'Alternative was successfully deleted.' }
+      format.json { head :no_content }
+    end
+  end
+  
+  def destroy_proposal
+    @alternative = Alternative.find(params[:id])
+    @user = @alternative.user
+    @alternative.destroy
+    respond_to do |format|
+      format.html { redirect_to propose_alternatives_to_path(@user.id), notice: 'Proposal was successfully deleted.' }
       format.json { head :no_content }
     end
   end

@@ -10,17 +10,22 @@ Rails.application.routes.draw do
   
   get 'search_friends', to: 'users#search'
   post 'add_friend', to: 'users#add_friend'
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
-
+  
   # You can have the root of your site routed with "root"
   
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
+  get 'users/:id/propose_alternatives', to: 'propose#new_alternatives', as: :propose_alternatives_to
+  post 'add_proposal', to: 'alternatives#add_proposal'
+  delete 'remove_proposal/:id/', to: 'alternatives#destroy_proposal', as: :remove_proposal
+
   # Example of named route that can be invoked with purchase_url(id: product.id)
-  #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
+  # get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products

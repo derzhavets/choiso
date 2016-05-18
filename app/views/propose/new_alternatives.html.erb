@@ -1,0 +1,38 @@
+<h2>Propose alternatives for <%= @propose_for.full_name %></h2>
+<br />
+<%= form_for @alternative, url: {controller: "alternatives", action: "add_proposal"}, html: { role: "form" } do |t| %>
+  <div="form-group">
+    <div class="row">
+      <div class="col-md-9">
+        <%= t.text_field :name, class: "form-control", placeholder: "Type your proposal here" %>
+      </div>
+        <%= t.hidden_field :user_id, :value => @propose_for.id %> 
+      <div class="col-md-3 pull-right">
+        <%= t.submit 'Propose', class: "btn btn-primary" %>
+      </div>  
+    </div>
+  </div>  
+<% end %> 
+
+<div class="col-md-8">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th colspan="2" class="table-header"><h3>Your proposals</h3></th>
+      </tr>
+    </thead>  
+    <tbody>
+      <% @propose_for.alternatives_proposed_by(current_user).each do |alternative| %>
+        <tr>
+          <td><%= alternative.name %></td>
+          <td>
+            <%= link_to 'Remove proposal', remove_proposal_path(alternative), 
+                                        :method => :delete,
+                                        :data => { :confirm => 'Are you sure?' },
+                                        :class => 'btn btn-xs btn-danger' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

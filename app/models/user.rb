@@ -13,9 +13,9 @@ class User < ActiveRecord::Base
     "Anonymous"
   end
   
-  def proposals_by(user)
-    alternatives.where(proposed_by: user)
-  end 
+  def alternatives_proposed_by(user)
+    alternatives.where(proposed_by: user.id)
+  end
   
   def not_friends_with?(friend_id)
     friendships.where(friend_id: friend_id).count < 1
