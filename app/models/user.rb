@@ -3,7 +3,8 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
-  has_many :alternatives, dependent: :destroy
+  has_many :alternatives, :class_name => "Alternative", :foreign_key => :user_id
+  has_many :alternatives, :class_name => "Alternative", :foreign_key => :proposer_id
   has_many :evaluations, :as => :rater
   has_many :friendships
   has_many :friends, through: :friendships
