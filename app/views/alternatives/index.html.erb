@@ -2,7 +2,7 @@
   <%= form_for @alternative, url: {action: "create"}, html: { role: "form" } do |t| %>
     <div="form-group">
       <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-6">
           <%= t.text_field :name, class: "form-control input-lg", placeholder: "Type your alternative here" %>
         </div>
         <div class="col-md-3">
@@ -14,7 +14,7 @@
 
 
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-lg-5">
     <br>
     <table class="table table-striped">
       <thead>
@@ -45,7 +45,51 @@
       </tbody>
     </table>
   </div>
-  <div class="col-md-4">
-    
+  <div class="col-lg-3">
+    <br />
+    <br />
+    <br />
+    <div class="panel panel-default devise-bs">
+      <div class="panel-heading panel-heading-proposals">
+        <ul class="nav">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle dropdown-toggle-proposals" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Examples and proposals<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#"><strong>Examples by Choisys</strong></a></li>
+              <li><%= link_to 'Simple examples', root_path %></li>
+              <li><%= link_to 'Complex examples', root_path %></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#"><strong>Proposals by users</strong></a></li>
+              <li><a href="#"><i>No proposals yet</i></a></li>
+              <li role="separator" class="divider"></li>
+              <li><%= link_to 'Ask for proposals', root_path, class: "btn btn-s btn-success" %></li>
+            </ul>
+          </li>  
+        </ul>  
+      </div>
+      <div class="panel-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Simple examples by Choisys</th>
+            </tr>  
+          </thead>
+          <tbody>
+              <tr>
+                <td>Something</td>
+              </tr>
+              <tr>
+                <td>Something</td>
+              </tr>
+              <tr>
+                <td>Something</td>
+              </tr>
+              <tr>
+                <td>Dark side</td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>

@@ -4,9 +4,8 @@ class AlternativesController < ApplicationController
   # GET /alternatives
   # GET /alternatives.json
   def index
-    @alternatives = Alternative.where(user_id: current_user.id)
+    @alternatives = current_user.alternatives.where(proposed_by: current_user.id)
     @alternative = Alternative.new
-
   end
 
   # GET /alternatives/1
