@@ -4,8 +4,17 @@ class AlternativesController < ApplicationController
   # GET /alternatives
   # GET /alternatives.json
   def index
-    @alternatives = current_user.alternatives.where(user_id: current_user.id)
+    @alternatives = current_user.alternatives.where(proposer_id: current_user.id)
     @alternative = Alternative.new
+  
+    @proposals = current_user.alternatives.where(user_id: current_user.id)
+    
+    @proposers = Array.new
+    @proposals.each do |prop|
+      usr = User.find(prop.proposer.id)
+      @proposers << usr
+    end
+    
   end
 
   # GET /alternatives/1
