@@ -3,8 +3,8 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
-  has_many :alternatives, :class_name => "Alternative", :foreign_key => :user_id
-  has_many :alternatives, :class_name => "Alternative", :foreign_key => :proposer_id
+  has_many :alternatives
+  has_one :alternative, :class_name => "Alternative", :foreign_key => :proposer_id
   has_many :evaluations, :as => :rater
   has_many :friendships
   has_many :friends, through: :friendships
@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   end
   
   def alternatives_proposed_by(user)
-    alternatives.where(proposed_by: user.id)
+    alternatives.where(proposer_id: user.id)
   end
   
   def not_friends_with?(friend_id)

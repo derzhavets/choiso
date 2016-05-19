@@ -4,7 +4,7 @@ class AlternativesController < ApplicationController
   # GET /alternatives
   # GET /alternatives.json
   def index
-    @alternatives = current_user.alternatives.where(proposed_by: current_user.id)
+    @alternatives = current_user.alternatives.where(user_id: current_user.id)
     @alternative = Alternative.new
   end
 
@@ -56,12 +56,12 @@ class AlternativesController < ApplicationController
   
   def propose
     @alternative = Alternative.new
-    @propose_for = User.find(params[:id])
+    @proposant = User.find(params[:id])
   end
   
   def add_proposal
     @alternative = Alternative.new(alternative_params)
-    @alternative.proposed_by = current_user.id
+    @alternative.proposer_id = current_user.id
     
     if @alternative.save
       redirect_to propose_alternatives_path(alternative_params[:user_id]), notice: "Alternative was successfully proposed."
