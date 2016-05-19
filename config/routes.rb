@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
-  get 'users/:id/propose_alternatives', to: 'propose#new_alternatives', as: :propose_alternatives_to
+  get 'users/:id/propose_alternatives', to: 'alternatives#propose', as: :propose_alternatives
   post 'add_proposal', to: 'alternatives#add_proposal'
   delete 'remove_proposal/:id/', to: 'alternatives#destroy_proposal', as: :remove_proposal
 

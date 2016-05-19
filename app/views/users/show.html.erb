@@ -6,6 +6,6 @@
   <dt><strong>Email</strong></dt>
   <dd><%= @user.email %></dd>
 </dl>
-<%= link_to 'Propose alternatives', propose_alternatives_to_path(@user), :food => @user.id, class: "btn btn-lg btn-primary" %>
+<%= link_to 'Propose alternatives', propose_alternatives_path(@user), class: "btn btn-lg btn-primary" %>
 
 <h4><%=link_to 'Back to my friends', my_friends_path %></h4>

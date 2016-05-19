@@ -1,16 +1,18 @@
 <div id="friend-lookup">
   <h3>Search for Friends</h3>
   <%= form_tag search_friends_path, remote: true, method: :get, id: 'friend-lookup-form' do %>
-    <div class="form-group row no-padding text-center col-md-12">
-      <div class="col-md-10">
-        <%= text_field_tag :search_param, params[:search_param], placeholder: 'First Name, Last Name or Email',
-                                              autofocus: true,
-                                              class: 'form-control search-box input-lg' %>
-      </div>
-      <div class="col-md-2">
-        <%= button_tag(type: :submit, class: 'btn btn-lg btn-success') do %>
-          <i class='fa fa-search'></i> Look up a friend
-        <% end %>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-8">
+          <%= text_field_tag :search_param, params[:search_param], placeholder: 'First Name, Last Name or Email',
+                                                autofocus: true,
+                                                class: 'form-control search-box input-lg' %>
+        </div>
+        <div class="col-md-2">
+          <%= button_tag(type: :submit, class: 'btn btn-lg btn-success') do %>
+            <i class='fa fa-search'></i> Look up a friend
+          <% end %>
+        </div>
       </div>
     </div>
   <% end %>
@@ -19,24 +21,36 @@
 
   <% if @users %>
     <% if @users.size > 0 %>
-      <h3>Search Results</h3>
-      <div id="friend-lookup-results">
-        <table class="search-results-table table-striped col-md-12">
-          <tbody>
-          <% @users.each do |user| %>
+      <div id="friend-lookup-results">    
+        <table class="table table-striped">
+          <thead>
             <tr>
-              <td><strong>Name:</strong> <%= user.full_name %></td>
-              <td><strong>Email:</strong> <%= user.email %></td>
-              <td><strong>Profile:</strong> <%= link_to "View Profile", user_path(user), class: "btn btn-xs btn-primary" %>
-                <% if current_user.not_friends_with?(user.id) %>
-                  <%= link_to "Add as my friend", add_friend_path(user: current_user, friend: user),
-                                                  class: 'btn btn-xs btn-success', method: :post %>
-                <% else %>
-                  <button class="btn btn-primary btn-xs">You are friends</button>
-                <% end %>
-              </td>
+              <th colspan="3" class="page-header">
+                <h2>Search results</h2>
+              </th>
             </tr>
-            <% end %>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @users.each do |user| %>
+              <tr>
+                <td><%= user.full_name %></td>
+                <td><%= user.email %></td>
+                <td>
+                  <%= link_to "View profile", user_path(user), class: "btn btn-xs btn-primary" %>
+                  <% if current_user.not_friends_with?(user.id) %>
+                      <%= link_to "Add as my friend", add_friend_path(user: current_user, friend: user),
+                                                    class: 'btn btn-xs btn-primary', method: :post %>
+                  <% else %>
+                    <button class="btn btn-success btn-xs">You are friends</button>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>  
           </tbody>
         </table>
       </div>

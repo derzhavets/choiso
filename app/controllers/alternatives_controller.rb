@@ -55,14 +55,19 @@ class AlternativesController < ApplicationController
     end
   end
   
+  def propose
+    @alternative = Alternative.new
+    @propose_for = User.find(params[:id])
+  end
+  
   def add_proposal
     @alternative = Alternative.new(alternative_params)
     @alternative.proposed_by = current_user.id
     
     if @alternative.save
-      redirect_to propose_alternatives_to_path(alternative_params[:user_id]), notice: "Alternative was successfully proposed."
+      redirect_to propose_alternatives_path(alternative_params[:user_id]), notice: "Alternative was successfully proposed."
     else
-      redirect_to propose_alternatives_to_path(alternative_params[:user_id]), flash[:error] = "There was an error with adding proposal. Fuck knows why. :("
+      redirect_to propose_alternatives_path(alternative_params[:user_id]), flash[:error] = "There was an error with adding proposal. Fuck knows why. :("
     end
   end
   
@@ -81,7 +86,7 @@ class AlternativesController < ApplicationController
     @user = @alternative.user
     @alternative.destroy
     respond_to do |format|
-      format.html { redirect_to propose_alternatives_to_path(@user.id), notice: 'Proposal was successfully deleted.' }
+      format.html { redirect_to propose_alternatives_path(@user.id), notice: 'Proposal was successfully deleted.' }
       format.json { head :no_content }
     end
   end
