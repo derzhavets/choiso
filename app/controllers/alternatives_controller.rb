@@ -35,8 +35,8 @@ class AlternativesController < ApplicationController
   # POST /alternatives.json
   def create
     @alternative = Alternative.new(alternative_params)
-    @alternative.user_id = current_user.id
-    @alternative.proposed_by = current_user.id
+    @alternative.user = current_user
+    @alternative.proposer = current_user
 
     respond_to do |format|
       if @alternative.save
