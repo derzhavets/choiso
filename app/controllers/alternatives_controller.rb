@@ -43,8 +43,8 @@ class AlternativesController < ApplicationController
         format.html { redirect_to alternatives_path, notice: 'Alternative was successfully added.' }
         format.json { render :show, status: :created, location: @alternative }
       else
-        format.html { render :new }
         format.json { render json: @alternative.errors, status: :unprocessable_entity }
+        format.html { redirect_to alternatives_path, flash[:danger] = @alternative.errors }
       end
     end
   end
