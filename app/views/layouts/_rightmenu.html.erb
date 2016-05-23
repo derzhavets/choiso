@@ -11,10 +11,12 @@
                 <li><%= link_to 'Complex examples', root_path %></li>
                 <li role="separator" class="divider"></li>
                 <li><a href="#"><strong>Proposals by users</strong></a></li>
-                  <% @proposers.uniq.each do |proposer| %>  
-                    <!-- <li><a href="#"><i>No proposals yet</i></a></li> -->
-                      <li><a href="#"><%= proposer.full_name %></a></li>
-                  <% end %>  
+                  <% if @proposers %>
+                    <% @proposers.uniq.each do |proposer| %>  
+                      <!-- <li><a href="#"><i>No proposals yet</i></a></li> -->
+                        <li><a href="#"><%= proposer.full_name %></a></li>
+                    <% end %>  
+                  <% end %>
                 <li role="separator" class="divider"></li>
                 <li><%= link_to 'Ask for proposals', root_path, class: "btn btn-s btn-success" %></li>
               </ul>

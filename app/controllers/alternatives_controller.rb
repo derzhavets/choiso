@@ -40,8 +40,8 @@ class AlternativesController < ApplicationController
 
     respond_to do |format|
       if @alternative.save
-        format.html { redirect_to alternatives_path, notice: 'Alternative was successfully added.' }
-        format.json { render :show, status: :created, location: @alternative }
+        format.js
+        format.html { render alternatives_path }
       else
         format.json { render json: @alternative.errors, status: :unprocessable_entity }
         format.html { redirect_to alternatives_path, flash[:danger] = @alternative.errors }
@@ -85,7 +85,7 @@ class AlternativesController < ApplicationController
     @alternative.destroy
     respond_to do |format|
       format.html { redirect_to alternatives_url, notice: 'Alternative was successfully deleted.' }
-      format.json { head :no_content }
+      format.js
     end
   end
   
@@ -107,6 +107,6 @@ class AlternativesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def alternative_params
-      params.require(:alternative).permit(:name, :proposed_by, :user_id)
+      params.require(:alternative).permit(:name, :proposer_id, :user_id)
     end
 end

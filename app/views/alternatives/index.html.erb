@@ -11,24 +11,7 @@
       </div>
     
       <div class="panel-body">
-        <%= simple_form_for(@alternative, wrapper: :vertical_input_group,
-          wrapper_mappings: {
-            check_boxes: :horizontal_radio_and_checkboxes,
-            radio_buttons: :horizontal_radio_and_checkboxes,
-            file: :horizontal_file_input,
-            boolean: :horizontal_boolean
-          }) do |f| %>
-          <div class="form-inputs">
-            <%= f.input :name, wrapper: :vertical_input_group, label: false  do %>
-              <%= f.input_field :name, class: "form-control", placeholder: "Type your alternative here" %>
-              <span class="input-group-btn">
-                <%= f.button :submit, 'Add', class: "btn btn-primary" %>
-                <!-- <button class="btn btn-primary" type="button">Add</button> -->
-                <%= link_to 'Show proposals', root_path, class: "btn btn-success" %>
-              </span>
-            <% end %>
-          </div>
-        <% end %>
+        <%= render 'form' %>
         <hr>
         <table class="table table-striped">
           <thead>
@@ -37,27 +20,10 @@
                 <th>Evaluation</th>
               </tr>
             </thead>
-          <tbody>
-              <% @alternatives.each do |alternative| %>
-                <tr>
-                  <td>
-                    <%= link_to alternative_path(alternative), method: :delete, 
-                                data: { confirm: 'Are you sure you want to delete this alternative and all its evaluations?' } do %>
-                      <i class="fa fa-times" aria-hidden="true"></i>
-                    <% end %>
-                  </td>
-                  <td><%= alternative.name %></td>
-                  <td>
-                    <div class="row">
-                      <% (1..3).each do |i| %>
-                        <div class="col-md-1"><i class="fa fa-star-o" aria-hidden="true"></i></div>
-                      <% end %>
-                    </div>  
-                  </td>
-                </tr>  
-                  <% end %>  
-            </tbody>
-        </table>
+          <tbody id="alternatives-listing">
+            <%= render @alternatives %>  
+          </tbody>
+        </table>  
       </div>  
     </div>  
   </div>
