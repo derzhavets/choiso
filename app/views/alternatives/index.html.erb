@@ -6,11 +6,13 @@
           Define and evaluate your alternatives
         </div>
         <div class="btn-group pull-right">
-          <%= button_to 'Collapse', root_path, class: "btn btn-default" %>
+          <%= link_to root_path, class: "btn btn-default", id: "toggle-alternatives", remote: true  do %>
+            <span id="toggle-alternatives-label">Collapse</span>
+          <% end %>
         </div>
       </div>
     
-      <div class="panel-body">
+      <div class="panel-body" id="alternatives-body">
         <%= render 'form' %>
         <hr>
         <table class="table table-striped">

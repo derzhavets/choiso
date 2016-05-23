@@ -1,7 +1,17 @@
   <div class="row">
     <div class="col-md-12">
       <div class="panel panel-default">
-        <div class="panel-heading panel-heading-proposals">
+        <div class="panel-heading panel-heading clearfix">
+           <div class="panel-title pull-left" style="padding-top:6px;">
+              Examples and proposals
+            </div>
+            <div class="btn-group pull-right">
+              <%= link_to root_path, class: "btn btn-default", id: "toggle-proposals", remote: true  do %>
+                <span id="toggle-proposals-label">Show</span>
+              <% end %>
+            </div> 
+        </div>
+        <div class="panel-body" id="proposals-body">
           <ul class="nav">
             <li class="dropdown">
               <a href="#" class="dropdown-toggle dropdown-toggle-proposals" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Examples and proposals<span class="caret"></span></a>
@@ -21,9 +31,10 @@
                 <li><%= link_to 'Ask for proposals', root_path, class: "btn btn-s btn-success" %></li>
               </ul>
             </li>  
-          </ul>  
-        </div>
-        <div class="panel-body">
+          </ul>
+          
+          <hr>
+          
           <table class="table">
             <thead>
               <tr>
@@ -45,7 +56,7 @@
                 </tr>
             </tbody>
           </table>
-        </div>
+        </div>  
       </div>
     </div>
   </div>

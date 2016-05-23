@@ -22,3 +22,24 @@ var hide_spinner = function(){
 var show_spinner = function(){
   $('#spinner').show();
 }
+
+$(document).ready(function() {
+
+  $('#proposals-body').hide();
+
+  $('#toggle-alternatives').click(function(){
+    $('#alternatives-body').slideToggle("fast");
+    $('#toggle-alternatives-label').html(function(i, text){
+      return text === "Collapse" ? "Expand" : "Collapse";
+    });
+  });
+  
+  $('#toggle-proposals').click(function(){
+    $('#proposals-body').slideToggle("fast");
+    $('#toggle-proposals-label').html(function(i, text){
+      return text === "Hide" ? "Show" : "Hide";
+    });
+  });
+  
+  
+});
