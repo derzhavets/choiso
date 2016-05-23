@@ -14,6 +14,10 @@ class User < ActiveRecord::Base
     "Anonymous"
   end
   
+  def alternatives_proposed_to(user)
+    alternatives.where("user_id = ? AND proposer_id != ?", user.id, user.id)
+  end
+  
   def alternatives_proposed_by(user)
     alternatives.where(proposer_id: user.id)
   end

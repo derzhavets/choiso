@@ -1,6 +1,10 @@
 class WelcomeController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:index]
+  skip_before_action :authenticate_user!, only: [:start]
   
-  def index
+  def start
+  end
+  
+  def home
+    @alternatives = current_user.alternatives.where(proposer_id: current_user.id)
   end
 end

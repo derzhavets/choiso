@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   
-  root 'welcome#index'
+  root 'welcome#home'
   
   resources :alternatives
   devise_for :users, :controllers => { :registrations => "user/registrations" }
