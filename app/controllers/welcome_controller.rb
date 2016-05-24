@@ -6,5 +6,6 @@ class WelcomeController < ApplicationController
   
   def home
     @alternatives = current_user.alternatives.where(proposer_id: current_user.id)
+    @proposer = User.find(11)
   end
 end

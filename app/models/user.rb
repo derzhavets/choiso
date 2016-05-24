@@ -14,6 +14,27 @@ class User < ActiveRecord::Base
     "Anonymous"
   end
   
+  def proposers_of(showable, user)
+    alternatives = send("#{showable}_proposed_to".to_sym, user)
+    
+    proposers = Array.new
+    
+    alternatives.each do |alternative|
+      usr = User.find(alternative.proposer.id)
+      proposers << usr
+    end
+    
+    return proposers.uniq 
+  end
+  
+  def proposals_by(showable, user)
+    alternatives = send("#{showable}_proposed_by".to_sym, user)
+    return alternatives
+  end
+
+
+    
+  
   def alternatives_proposed_to(user)
     alternatives.where("user_id = ? AND proposer_id != ?", user.id, user.id)
   end

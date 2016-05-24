@@ -5,16 +5,6 @@ class AlternativesController < ApplicationController
   # GET /alternatives.json
   def index
     @alternatives = current_user.alternatives.where(proposer_id: current_user.id)
-    @alternative = Alternative.new
-  
-    @proposals = current_user.alternatives.where(user_id: current_user.id)
-    
-    @proposers = Array.new
-    @proposals.each do |prop|
-      usr = User.find(prop.proposer.id)
-      @proposers << usr
-    end
-    
   end
 
   # GET /alternatives/1
@@ -60,6 +50,14 @@ class AlternativesController < ApplicationController
         format.html { render :edit }
         format.json { render json: @alternative.errors, status: :unprocessable_entity }
       end
+    end
+  end
+  
+  def show_proposals
+  @showable = params[:showable]  
+  @proposer = User.find(params[:proposer_id])  
+    respond_to do |format|
+      format.js
     end
   end
   

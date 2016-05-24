@@ -22,6 +22,7 @@ Rails.application.routes.draw do
 
   get 'users/:id/propose_alternatives', to: 'alternatives#propose', as: :propose_alternatives
   post 'add_proposal', to: 'alternatives#add_proposal'
+  get 'show_proposals', to: 'alternatives#show_proposals'
   delete 'remove_proposal/:id/', to: 'alternatives#destroy_proposal', as: :remove_proposal
 
   # Example of named route that can be invoked with purchase_url(id: product.id)

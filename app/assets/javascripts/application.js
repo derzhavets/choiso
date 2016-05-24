@@ -25,8 +25,6 @@ var show_spinner = function(){
 
 $(document).ready(function() {
 
-  $('#proposals-body').hide();
-
   $('#toggle-alternatives').click(function(){
     $('#alternatives-body').slideToggle("fast");
     $('#toggle-alternatives-label').html(function(i, text){
