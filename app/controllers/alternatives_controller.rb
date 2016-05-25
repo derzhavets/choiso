@@ -76,6 +76,10 @@ class AlternativesController < ApplicationController
     @alternative = Alternative.new(alternative_params)
     @alternative.proposer_id = current_user.id
     
+    #Create notification
+    recipient = User.find(alternative_params[:user_id])
+    Notification.create(recipient: recipient, actor: current_user, action: "proposed", notifiable: @alternative)
+    
     if @alternative.save
       redirect_to propose_alternatives_path(alternative_params[:user_id]), notice: "Alternative was successfully proposed."
     else

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  recipient_id: 1
+  actor_id: 1
+  read_at: 2016-05-25 10:57:15
+  action: MyString
+  notifiable_id: 1
+  notifiable_type: MyString
+
+two:
+  recipient_id: 1
+  actor_id: 1
+  read_at: 2016-05-25 10:57:15
+  action: MyString
+  notifiable_id: 1
+  notifiable_type: MyString

@@ -8,13 +8,19 @@ Rails.application.routes.draw do
   resources :users, only: [:show]
   resources :friendships
   
+  resources :notifications do
+    collection do
+      post :mark_as_read
+    end
+  end
+  
+  
   get 'search_friends', to: 'users#search'
   post 'add_friend', to: 'users#add_friend'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
   
-  # You can have the root of your site routed with "root"
   
 
   # Example of regular route:
