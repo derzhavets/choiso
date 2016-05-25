@@ -6,6 +6,9 @@ class WelcomeController < ApplicationController
   
   def home
     @alternatives = current_user.alternatives.where(proposer_id: current_user.id)
-    @proposer = User.find(11)
+    
+    #Default: showing basic alternatives examples
+    @proposer = User.find(15)
+    @examples = Example.where("exampleable_type = ? AND exampleable = ?", "basic", "alternatives")
   end
 end

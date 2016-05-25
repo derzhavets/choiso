@@ -38,10 +38,11 @@ ActiveRecord::Schema.define(version: 20160524063707) do
   add_index "evaluations", ["rater_type", "rater_id"], name: "index_evaluations_on_rater_type_and_rater_id"
 
   create_table "examples", force: :cascade do |t|
+    t.string   "exampleable_type"
     t.string   "exampleable"
     t.string   "content"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
   create_table "friendships", force: :cascade do |t|

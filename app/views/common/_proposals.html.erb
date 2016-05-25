@@ -1,48 +1,58 @@
-  <div class="row">
-    <div class="col-md-12">
-      <div class="panel panel-default">
-        <div class="panel-heading panel-heading clearfix">
-           <div class="panel-title pull-left" style="padding-top:6px;">
-              Examples and proposals
-            </div>
-            <div class="btn-group pull-right">
-              <%= link_to root_path, class: "btn btn-default", id: "toggle-proposals", remote: true  do %>
-                <span id="toggle-proposals-label">Hide</span>
-              <% end %>
-            </div> 
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading panel-heading clearfix">
+          <div class="panel-title pull-left" style="padding-top:6px;">
+            Examples and proposals
+          </div>
+          <div class="btn-group pull-right">
+            <%= link_to root_path, class: "btn btn-default", id: "toggle-proposals", remote: true  do %>
+              <span id="toggle-proposals-label">Hide</span>
+            <% end %>
+          </div> 
+      </div>
+      <div class="panel-body" id="proposals-body">
+        <div class="dropdown">
+          <p class="dropdown-toggle dropdown-toggle-header" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <span id="proposer-name">Basic alternatives examples by Choisys</span>
+            <span class="caret"></span>
+          </p>
+          <ul class="dropdown-menu">
+              <li><a href="#"><strong>Examples by Choisys</strong></a></li>
+              <li>
+                <%= link_to 'Basic examples', {:controller => "alternatives", :proposer_id => 15,
+                              :action => "show_proposals", :exampleable => "basic",
+                              :showable => showable }, :remote => true %>
+              </li>
+              <li>
+                <%= link_to 'Complex examples', {:controller => "alternatives", :proposer_id => 15,
+                              :action => "show_proposals", :exampleable => "complex",
+                              :showable => showable }, :remote => true %>
+              </li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#"><strong>Proposals by users</strong></a></li>
+                <% if current_user.proposers_of(showable, current_user).any? %>
+                  <% current_user.proposers_of(showable, current_user).each do |proposer| %></li></td>
+                    <li>
+                      <%= link_to proposer.full_name, {:controller => "alternatives", 
+                                    :action => "show_proposals", :proposer_id => proposer.id, 
+                                    :showable => showable }, :remote => true %>
+                    </li>
+                  <% end %>  
+                <% else %>
+                  <li><a href="#"><i>You have no <%= showable %> proposals.</i></a></li>
+                <% end %>
+              <li role="separator" class="divider"></li>
+              <li><%= link_to 'Ask for proposals', root_path, class: "btn btn-s btn-success" %></li>
+            </ul> 
         </div>
-        <div class="panel-body" id="proposals-body">
-          <ul class="nav">
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle dropdown-toggle-proposals" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= showable %><span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#"><strong>Examples by Choisys</strong></a></li>
-                <li><%= link_to 'Simple examples', root_path %></li>
-                <li><%= link_to 'Complex examples', root_path %></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="#"><strong>Proposals by users</strong></a></li>
-                  <% if current_user.proposers_of(showable, current_user).any? %>
-                    <% current_user.proposers_of(showable, current_user).each do |proposer| %></li></td>
-                      <li>
-                        <%= link_to proposer.full_name, {:controller => "alternatives", :action => "show_proposals", :proposer_id => proposer.id, :showable => showable }, :remote => true %></a>
-                      </li>
-                    <% end %>  
-                  <% else %>
-                    <li><a href="#"><i>You have no <%= showable %> proposals.</i></a></li>
-                  <% end %>
-                <li role="separator" class="divider"></li>
-                <li><%= link_to 'Ask for proposals', root_path, class: "btn btn-s btn-success" %></li>
-              </ul>
-            </li>  
-          </ul>
-          
-          
-          <table class="table table-striped">
+        
+        <table class="table table-striped">
             <tbody id="proposals-list">
               <%= render 'common/proposals_list', :showable => showable %>  
-            </tbody>
-          </table>
-        </div>  
-      </div>
+            </tbody>            
+        </table>
+      </div>  
     </div>
   </div>
+</div>

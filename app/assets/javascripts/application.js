@@ -23,6 +23,7 @@ var show_spinner = function(){
   $('#spinner').show();
 }
 
+
 $(document).ready(function() {
 
   $('#toggle-alternatives').click(function(){
@@ -38,6 +39,5 @@ $(document).ready(function() {
       return text === "Hide" ? "Show" : "Hide";
     });
   });
-  
   
 });

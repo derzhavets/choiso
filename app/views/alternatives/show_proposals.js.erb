@@ -1,1 +1,7 @@
-$("#proposals-list").html("<%= j render('common/proposals_list', :showable => @showable) %>");
+$("#proposals-list").html("<%= j render('common/proposals_list') %>");
+
+<% if showing_examples? %>
+  $('#proposer-name').html("<%= @exampleable_type.capitalize if @exampleable_type %> <%= @showable %> examples by Choisys");
+<% else %>
+  $('#proposer-name').html("<%= @showable.capitalize %> proposed by <%= @proposer.full_name %>");
+<% end %>

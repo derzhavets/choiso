@@ -4,4 +4,13 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :authenticate_user!
   
+  helper_method :examples_of, :showing_examples?
+  
+  def examples_of(showable)
+    Example.where(exampleable: showable)
+  end
+  
+  def showing_examples?
+    @proposer.id == 15
+  end
 end

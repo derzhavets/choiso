@@ -16,7 +16,7 @@ gem 'coffee-rails', '~> 4.1.0'
 
 # Custom gems
 gem 'devise'
-gem 'twitter-bootstrap-rails'
+gem "twitter-bootstrap-rails"
 gem 'devise-bootstrap-views'
 gem 'simple_form'
 gem 'pry'

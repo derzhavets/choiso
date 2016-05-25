@@ -55,7 +55,13 @@ class AlternativesController < ApplicationController
   
   def show_proposals
   @showable = params[:showable]  
-  @proposer = User.find(params[:proposer_id])  
+  @proposer = User.find(params[:proposer_id])
+  
+  if params[:exampleable]
+    @examples = Example.where("exampleable_type = ? AND exampleable = ?", params[:exampleable], params[:showable])
+    @exampleable_type = params[:exampleable]  
+  end
+  
     respond_to do |format|
       format.js
     end

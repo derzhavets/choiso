@@ -1,5 +1,13 @@
-<% current_user.proposals_by(showable, @proposer).each do |proposal| %>
-  <tr>
-    <td><%= proposal.name %></td>
-  </tr>
+<% if showing_examples? %>
+  <% @examples.each do |example| %>
+    <tr>
+      <td><%= example.content.capitalize %></td>
+    </tr>
+  <% end %>  
+<% else %>  
+  <% current_user.proposals_by(@showable, @proposer).each do |proposal| %>
+    <tr>
+      <td><%= proposal.name %></td>
+    </tr>
+  <% end %>
 <% end %>  
