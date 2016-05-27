@@ -6,6 +6,4 @@ class Notification < ActiveRecord::Base
   scope :unread, -> { where(read_at: nil) }
   scope :last_ten, -> { last(10).reverse }
   
-  
-  
 end

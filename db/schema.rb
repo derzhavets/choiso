@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160525105715) do
+ActiveRecord::Schema.define(version: 20160527084640) do
 
   create_table "alternatives", force: :cascade do |t|
     t.string   "name"
@@ -61,6 +61,16 @@ ActiveRecord::Schema.define(version: 20160525105715) do
     t.string   "notifiable_type"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+  end
+
+  create_table "requests", force: :cascade do |t|
+    t.integer  "sender_id"
+    t.integer  "receiver_id"
+    t.string   "evaluable_type"
+    t.integer  "evaluable_id"
+    t.string   "collectible_type"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
   create_table "users", force: :cascade do |t|

@@ -8,12 +8,14 @@ Rails.application.routes.draw do
   resources :users, only: [:show]
   resources :friendships
   
-  resources :notifications do
+  resources :notifications, only: [:index] do
     collection do
       post :mark_as_read
       get :unread
     end
   end
+  
+  resources :requests, only: [:index, :create]
   
   
   get 'search_friends', to: 'users#search'

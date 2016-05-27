@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   has_many :friendships
   has_many :friends, through: :friendships
   has_many :notifications, foreign_key: :recipient_id
+  has_many :requests, foreign_key: :receiver_id
   
   def full_name
     return "#{first_name} #{last_name}".strip if (first_name || last_name)
