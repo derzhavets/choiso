@@ -13,19 +13,14 @@
       </div>
     
       <div class="panel-body" id="alternatives-body">
+        
         <%= render 'alternatives/form' %>
         <hr>
-        <table class="table table-striped">
-          <thead>
-              <tr>
-                <th colspan="2">Your current alternatives</th>
-                <th>Evaluation</th>
-              </tr>
-            </thead>
-          <tbody id="alternatives-listing">
-            <%= render @alternatives %>  
-          </tbody>
-        </table>  
+        
+          <ul class="list-group" id="alternatives-listing">
+            <%= render @alternatives %> 
+          </ul>  
+        
       </div>  
     </div>  
   </div>
