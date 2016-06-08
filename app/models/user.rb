@@ -11,38 +11,29 @@ class User < ActiveRecord::Base
   has_many :notifications, foreign_key: :recipient_id
   has_many :requests, foreign_key: :receiver_id
   
+  
   def full_name
     return "#{first_name} #{last_name}".strip if (first_name || last_name)
     "Anonymous"
   end
+ 
+ 
+  def own_alternatives
+    alternatives.where(proposer_id: self.id)
+  end
   
-  def proposers_of(showable, user)
-    alternatives = send("#{showable}_proposed_to".to_sym, user)
-    
+  def alternatives_proposers
+    proposals = alternatives.where("user_id = ? AND proposer_id != ?", self.id, self.id)
     proposers = Array.new
     
-    alternatives.each do |alternative|
-      usr = User.find(alternative.proposer.id)
-      proposers << usr
+    proposals.each do |proposal|
+      proposers << User.find(proposal.proposer.id)
     end
-    
-    return proposers.uniq 
+    return proposers.uniq
   end
   
-  def proposals_by(showable, user)
-    alternatives = send("#{showable}_proposed_by".to_sym, user)
-    return alternatives
-  end
-
-
-    
-  
-  def alternatives_proposed_to(user)
-    alternatives.where("user_id = ? AND proposer_id != ?", user.id, user.id)
-  end
-  
-  def alternatives_proposed_by(user)
-    alternatives.where(proposer_id: user.id)
+  def alternatives_proposed_by(proposer)
+    alternatives.where(proposer_id: proposer.id)
   end
   
   def not_friends_with?(friend_id)

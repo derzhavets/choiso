@@ -25,3 +25,8 @@
     </div>  
   </div>
 </div>
+
+<!-- RIGHT MENU -->
+<% content_for :right_menu do %>
+  <%= render 'common/proposals', :showable => "alternatives" %>
+<% end %>

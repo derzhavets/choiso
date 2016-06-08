@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160527084640) do
+ActiveRecord::Schema.define(version: 20160608095749) do
 
   create_table "alternatives", force: :cascade do |t|
     t.string   "name"
@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 20160527084640) do
   create_table "examples", force: :cascade do |t|
     t.string   "exampleable_type"
     t.string   "exampleable"
-    t.string   "content"
+    t.string   "name"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
   end

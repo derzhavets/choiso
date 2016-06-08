@@ -4,7 +4,12 @@ class AlternativesController < ApplicationController
   # GET /alternatives
   # GET /alternatives.json
   def index
-    @alternatives = current_user.alternatives.where(proposer_id: current_user.id)
+    @alternatives = current_user.own_alternatives
+    
+    #Set proposals section
+    @proposers = current_user.alternatives_proposers
+    @example_types = Example.alternative_types_list
+    
   end
 
   # GET /alternatives/1
@@ -53,14 +58,20 @@ class AlternativesController < ApplicationController
     end
   end
   
-  def show_proposals
-  @showable = params[:showable]  
-  @proposer = User.find(params[:proposer_id])
-  
-  if params[:exampleable]
-    @examples = Example.where("exampleable_type = ? AND exampleable = ?", params[:exampleable], params[:showable])
-    @exampleable_type = params[:exampleable]  
+  def show_examples
+    @proposals = Example.for_alternative_type(params[:exampleable_type])
+    @type = params[:exampleable_type]
+    @showable = params[:controller]
+    
+    respond_to do |format|
+      format.js
+    end
   end
+  
+  def show_proposals
+    @proposer = User.find(params[:proposer_id])
+    @proposals = current_user.alternatives_proposed_by(@proposer)
+    @showable = params[:controller]
   
     respond_to do |format|
       format.js
