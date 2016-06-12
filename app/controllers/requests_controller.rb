@@ -12,12 +12,14 @@ class RequestsController < ApplicationController
         
         if params[:evaluable_type]
           evaluable = Alternative.find(params[:evaluable_id]) if params[:evaluable_type] == "Alternative"
+          evaluable_id = evaluable.id
         else
           evaluable = nil
+          evaluable_id = nil
         end
       
         collectible_type = params[:collectible_type] if params[:collectible_type]
-        Request.create(sender: current_user, receiver: receiver, evaluable: evaluable, collectible_type: collectible_type)
+        Request.create(sender: current_user, receiver: receiver, evaluable: evaluable, collectible_type: collectible_type) unless Request.exists?(:receiver_id => receiver.id, :sender_id => current_user.id, :evaluable_id => evaluable_id, :collectible_type => collectible_type)
       end
       
 
