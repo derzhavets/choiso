@@ -6,6 +6,7 @@ class AlternativesController < ApplicationController
   def index
     @alternatives = current_user.own_alternatives
     @request = Request.new
+    @user = current_user
   end
 
   # GET /alternatives/1
@@ -26,11 +27,20 @@ class AlternativesController < ApplicationController
   # POST /alternatives.json
   def create
     @alternative = Alternative.new(alternative_params)
-    @alternative.user = current_user
+    @alternative.user = User.find(params[:user_id])
     @alternative.proposer = current_user
+    
+    
 
     respond_to do |format|
       if @alternative.save
+        
+        #Create notification
+        if @alternative.user != current_user
+          Notification.create(recipient: @alternative.user, actor: current_user, 
+                              notifiable: @alternative, action: "proposed")
+        end
+        
         format.js
         format.html { render alternatives_path }
       else
@@ -53,27 +63,7 @@ class AlternativesController < ApplicationController
       end
     end
   end
-  
-  
-  def propose
-    @alternative = Alternative.new
-    @proposant = User.find(params[:id])
-  end
-  
-  def add_proposal
-    @alternative = Alternative.new(alternative_params)
-    @alternative.proposer_id = current_user.id
-    
-    #Create notification
-    recipient = User.find(alternative_params[:user_id])
-    Notification.create(recipient: recipient, actor: current_user, action: "proposed", notifiable: @alternative)
-    
-    if @alternative.save
-      redirect_to propose_alternatives_path(alternative_params[:user_id]), notice: "Alternative was successfully proposed."
-    else
-      redirect_to propose_alternatives_path(alternative_params[:user_id]), flash[:error] = "There was an error with adding proposal. Fuck knows why. :("
-    end
-  end
+
   
   # DELETE /alternatives/1
   # DELETE /alternatives/1.json

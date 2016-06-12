@@ -28,6 +28,9 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
+    
+    @alternatives = current_user.alternative_proposed_for(@user)
+    @requestable = current_user.requests_from(@user)
   end
   
 end

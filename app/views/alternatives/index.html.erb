@@ -32,18 +32,5 @@
 <% end %>
 
 <%= content_for :right_menu do %>
-  <table class="table table-striped">
-    <tbody>
-      <%= form_for @request do |f| %>
-        <% current_user.friends.each do |friend| %>
-          <tr>
-            <td><%= check_box_tag 'friend_ids[]', friend.id %></td>
-            <td><%= h friend.full_name %></td>
-                <%= f.hidden_field_tag 'collectible_type', "alternatives" %>
-          </tr>
-        <% end %>
-          <tr><td colspan="2"><%= f.submit 'Send request', class: "btn btn-primary" %></td></tr>
-      <% end %>  
-    </tbody>  
-  </table>  
+  <%= render 'friends/contacts' %>
 <% end %>

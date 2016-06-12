@@ -16,7 +16,10 @@ class User < ActiveRecord::Base
     return "#{first_name} #{last_name}".strip if (first_name || last_name)
     "Anonymous"
   end
- 
+  
+  def requests_from(user)
+    requests.where(sender: user)
+  end
  
   def own_alternatives
     alternatives.where(proposer_id: self.id)
@@ -34,6 +37,10 @@ class User < ActiveRecord::Base
   
   def alternatives_proposed_by(proposer)
     alternatives.where(proposer_id: proposer.id)
+  end
+  
+  def alternative_proposed_for(user)
+    user.alternatives.where(proposer: self)
   end
   
   def not_friends_with?(friend_id)

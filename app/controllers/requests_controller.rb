@@ -19,7 +19,13 @@ class RequestsController < ApplicationController
         end
       
         collectible_type = params[:collectible_type] if params[:collectible_type]
-        Request.create(sender: current_user, receiver: receiver, evaluable: evaluable, collectible_type: collectible_type) unless Request.exists?(:receiver_id => receiver.id, :sender_id => current_user.id, :evaluable_id => evaluable_id, :collectible_type => collectible_type)
+        @request = Request.new(sender: current_user, receiver: receiver, evaluable: evaluable, collectible_type: collectible_type) unless Request.exists?(:receiver_id => receiver.id, :sender_id => current_user.id, :evaluable_id => evaluable_id, :collectible_type => collectible_type)
+        
+        if @request.save
+          #Create notification
+            Notification.create(recipient: receiver, actor: current_user, 
+                                notifiable: current_user.alternatives.first, action: "asked for")
+        end
       end
       
 

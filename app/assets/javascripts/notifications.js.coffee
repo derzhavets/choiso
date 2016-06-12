@@ -36,7 +36,7 @@ class Notifications
     
   showLast: (data) =>
     items = $.map data, (notification) ->
-      "<li><a href='root_path'>#{notification.actor} #{notification.action} #{notification.notifiable.type} for you</a></li>"
+      "<li><a href='root_path'>#{notification.actor} #{notification.action} #{notification.notifiable.type}s</a></li>"
     $("[data-behavior='notification-items']").html(items)  
 
     

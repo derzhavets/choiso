@@ -1,11 +1,29 @@
-<h2>User details</h2>
-
-<dl class="dl-horizontal">
-  <dt><strong>Full Name</strong></dt>
-  <dd><%= @user.full_name %></dd>
-  <dt><strong>Email</strong></dt>
-  <dd><%= @user.email %></dd>
-</dl>
-<%= link_to 'Propose alternatives', propose_alternatives_path(@user), class: "btn btn-lg btn-primary" %>
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading clearfix">
+        <div class="panel-title pull-left" style="padding-top:6px;">
+          Propose alternatives for <%= @user.first_name %>
+        </div>
+        <div class="btn-group pull-right">
+          <%= link_to root_path, class: "btn btn-default", id: "toggle-alternatives", remote: true  do %>
+            <span id="toggle-alternatives-label">Collapse</span>
+          <% end %>
+        </div>
+      </div>
+    
+      <div class="panel-body" id="alternatives-body">
+        
+        <%= render 'alternatives/form' %>
+        <hr>
+        
+          <ul class="list-group" id="alternatives-listing">
+            <%= render @alternatives %> 
+          </ul>  
+        
+      </div>  
+    </div>  
+  </div>
+</div>
 
 <h4><%=link_to 'Back to my friends', my_friends_path %></h4>
