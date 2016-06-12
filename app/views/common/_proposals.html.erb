@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" data-behavior="proposals">
   <div class="col-md-12">
     <div class="panel panel-default">
       <div class="panel-heading panel-heading clearfix">
@@ -15,39 +15,13 @@
       <div class="panel-body" id="proposals-body">
         <div class="dropdown">
           <p class="dropdown-toggle dropdown-toggle-header" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            <span id="proposer-name">Basic alternatives examples by Choisys</span>
+            <span data-behavior="show-proposal-name"></span>
             <span class="caret"></span>
           </p>
-            <ul class="dropdown-menu">
-              <li><a href="#"><strong>Examples by Choisys</strong></a></li>
-              <% @example_types.each do |type| %>  
-                <li>
-                  <%= link_to "#{type.capitalize} examples", {:controller => showable, :action => "show_examples",
-                                                  :exampleable_type => type}, remote: true %>
-                </li>
-              <% end %> 
-              
-              <li role="separator" class="divider"></li>
-              
-              <li><a href="#"><strong>Proposals by users</strong></a></li>
-                <% if @proposers.any? %>
-                  <% @proposers.each do |proposer| %></li></td>
-                    <li>
-                      <%= link_to proposer.full_name, { :controller => showable, :action => "show_proposals", 
-                                                        :proposer_id => proposer.id }, 
-                                                        :remote => true %>
-                    </li>
-                  <% end %>  
-                <% else %>
-                  <li><a href="#"><i>You have no <%= showable %> proposals.</i></a></li>
-                <% end %>
-            </ul>
+            <ul class="dropdown-menu" data-behavior="show-proposers" class="show-proposers"></ul>
         </div>
-        
         <table class="table table-striped">
-          <tbody id="proposals-list">
-            <%= render 'proposals_list' if @proposals %>  
-          </tbody>            
+          <tbody data-behavior="show-proposals"></tbody>
         </table>
       </div>  
     </div>

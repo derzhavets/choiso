@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
   
-  root 'welcome#home'
+  root 'alternatives#index'
   
   resources :alternatives
-  devise_for :users, :controllers => { :registrations => "user/registrations" }
+  
+  
+  devise_for :users, :controllers => { :registrations => "user/registrations", :sessions => "sessions" }
   get 'my_friends', to: 'users#my_friends'
   resources :users, only: [:show]
   resources :friendships
@@ -15,6 +17,7 @@ Rails.application.routes.draw do
     end
   end
   
+  get 'show_proposals', to: 'proposals#show'
   
   resources :requests, only: [:index, :create]
   
@@ -32,7 +35,6 @@ Rails.application.routes.draw do
 
   get 'users/:id/propose_alternatives', to: 'alternatives#propose', as: :propose_alternatives
   post 'add_proposal', to: 'alternatives#add_proposal'
-  get 'show_proposals', to: 'alternatives#show_proposals'
   get 'show_examples', to: 'alternatives#show_examples'
   delete 'remove_proposal/:id/', to: 'alternatives#destroy_proposal', as: :remove_proposal
 

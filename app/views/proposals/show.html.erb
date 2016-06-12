@@ -1,0 +1,21 @@
+<%= link_to 'Show something', {:controller => "proposals", :action => "show", :showable => "alternatives", :proposer_id => 11} %>
+
+<table class="table table-striped">
+  <tbody>
+    <% @exampleable_types.each do |type| %>
+      <tr>
+        <td><%= type %></td>
+      </tr>
+    <% end %>  
+    <% @proposers.each do |proposer| %>
+      <tr>
+        <td><%= proposer.full_name %></td>
+      </tr>
+    <% end %> 
+    <% @proposals.each do |proposal| %>
+      <tr>
+        <td><%= proposal.name %></td>
+      </tr>
+    <% end %>  
+  </tbody>
+</table>

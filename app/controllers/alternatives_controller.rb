@@ -5,11 +5,6 @@ class AlternativesController < ApplicationController
   # GET /alternatives.json
   def index
     @alternatives = current_user.own_alternatives
-    
-    #Set proposals section
-    @proposers = current_user.alternatives_proposers
-    @example_types = Example.alternative_types_list
-    
   end
 
   # GET /alternatives/1
@@ -30,8 +25,8 @@ class AlternativesController < ApplicationController
   # POST /alternatives.json
   def create
     @alternative = Alternative.new(alternative_params)
-    @alternative.user_id = current_user.id
-    @alternative.proposer_id = current_user.id
+    @alternative.user = current_user
+    @alternative.proposer = current_user
 
     respond_to do |format|
       if @alternative.save
@@ -58,25 +53,6 @@ class AlternativesController < ApplicationController
     end
   end
   
-  def show_examples
-    @proposals = Example.for_alternative_type(params[:exampleable_type])
-    @type = params[:exampleable_type]
-    @showable = params[:controller]
-    
-    respond_to do |format|
-      format.js
-    end
-  end
-  
-  def show_proposals
-    @proposer = User.find(params[:proposer_id])
-    @proposals = current_user.alternatives_proposed_by(@proposer)
-    @showable = params[:controller]
-  
-    respond_to do |format|
-      format.js
-    end
-  end
   
   def propose
     @alternative = Alternative.new

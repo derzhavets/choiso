@@ -22,8 +22,8 @@ class User < ActiveRecord::Base
     alternatives.where(proposer_id: self.id)
   end
   
-  def alternatives_proposers
-    proposals = alternatives.where("user_id = ? AND proposer_id != ?", self.id, self.id)
+  def proposers_of(showable)
+    proposals = send("#{showable}".to_sym).where("user_id = ? AND proposer_id != ?", self.id, self.id)
     proposers = Array.new
     
     proposals.each do |proposal|
