@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   resources :users, only: [:show]
   resources :friendships
   
+  resources :requests
+  
   resources :notifications, only: [:index] do
     collection do
       post :mark_as_read

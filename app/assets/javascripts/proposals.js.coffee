@@ -25,7 +25,6 @@ class Proposals
     );
 
   showProposals: (data) => (
-    alert "Fuck"
     $("[data-behavior='show-proposers']").html("<li><a href='root_path'><strong>Examples by Choiso</strong></a></li>")
     types = $.map data.exampleable_types, (type) ->
       "<li><a href='root_path'>#{type.name} examples</a></li>"

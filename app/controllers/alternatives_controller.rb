@@ -5,6 +5,7 @@ class AlternativesController < ApplicationController
   # GET /alternatives.json
   def index
     @alternatives = current_user.own_alternatives
+    @request = Request.new
   end
 
   # GET /alternatives/1
