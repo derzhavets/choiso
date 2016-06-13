@@ -6,14 +6,15 @@ class Proposals
     
 
   setup: ->
-    $(document).on 'click', "[data-behavior='proposal-link']", (event) -> (
+    $(document).on 'click', "[data-behavior='proposal-link']", (event) => (
       event.preventDefault()
       link = $(this).data("url")
+      alert link
       $.ajax(
         url: link
         dataType: "JSON"
         method: "GET"
-        success: alert link
+        success: @showProposals
       )
     );
     
@@ -23,7 +24,10 @@ class Proposals
       method: "GET"
       success: @showProposals
     );
-
+    
+  showAss: (data) =>
+    alert "This is ass!"
+  
   showProposals: (data) => (
     $("[data-behavior='show-proposers']").html("<li><a href='root_path'><strong>Examples by Choiso</strong></a></li>")
     types = $.map data.exampleable_types, (type) ->
@@ -32,7 +36,7 @@ class Proposals
     $("[data-behavior='show-proposers']").append("<li><a href='root_path'><strong>Proposals by users</strong></a></li>")
     
     proposers = $.map data.proposers, (proposer) ->
-      "<li><a href='#' data-url='#{proposer.url}' data-behavior='proposal-link' class='proposal-link'>#{proposer.name}</a></li>"
+      "<li><a href='#' data-behavior='proposal-link' data-url='#{proposer.url}'>#{proposer.name}</a></li>"
     $("[data-behavior='show-proposers']").append(proposers)
     $("[data-behavior='show-proposal-name']").html(data.proposal_name)
     proposals = $.map data.proposals, (proposal) ->

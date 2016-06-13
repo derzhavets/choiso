@@ -1,6 +1,6 @@
 json.array! @notifications do |notification|
-  #json.id notification.id
-  
+  json.url notification_link_for(notification.id)
+  json.data_behavior notification_data_behavior_for(notification.id)
   json.actor notification.actor.full_name
   json.action notification.action
   json.notifiable do

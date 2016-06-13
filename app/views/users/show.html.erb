@@ -26,4 +26,6 @@
   </div>
 </div>
 
-<h4><%=link_to 'Back to my friends', my_friends_path %></h4>
+<% content_for :right_menu do %>
+  <%= render 'users/profile' %>
+<% end %>

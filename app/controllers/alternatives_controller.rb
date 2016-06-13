@@ -29,8 +29,6 @@ class AlternativesController < ApplicationController
     @alternative = Alternative.new(alternative_params)
     @alternative.user = User.find(params[:user_id])
     @alternative.proposer = current_user
-    
-    
 
     respond_to do |format|
       if @alternative.save
