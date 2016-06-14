@@ -1,0 +1,26 @@
+<div class="panel panel-default">
+  <div class="panel-heading clearfix">
+    <div class="panel-title panel-title-main pull-left">
+      Invite friends to help
+    </div>
+  </div>
+  <div class="panel-body">
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-12">
+          <%= form_for [@friendship, Friendship.new], class: 'form-control search-box input-lg' do |f| %>
+          <%= f.text_field :friend, placeholder: "Enter email", class: "form-control", required: true %>
+        </div>
+        <div class="col-md-12 form-group">
+            &nbsp;
+        </div>
+        <div class="col-md-12">
+            <%= f.submit 'Invite friend', class: 'btn btn btn-success' do %>
+              <i class='fa fa-search'></i> Look up a friend
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>  

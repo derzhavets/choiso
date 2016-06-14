@@ -1,36 +1,43 @@
-<%= render 'friends/lookup' %>
-
-<% if @friendships.size > 0 %>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th colspan="3" class="page-header">
-          <h2>My Friends</h2>
-        </th>
-      </tr>
-      <tr>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @friendships.each do |friend| %>
-        <tr>
-          <td><%= friend.full_name %></td>
-          <td><%= friend.email %></td>
-          <td>
-            <%= link_to "View Profile", user_path(friend), class: "btn btn-primary btn-xs" %>
-            <%= link_to 'Remove Friend', friendship_path(friend), :method => :delete,
-                                        :data => { :confirm => 'Are you sure?' },
-                                        :class => 'btn btn-xs btn-danger' %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% else %>
-  <div class='row col-lg-12'>
-    <p class="lead">You don't have any friends yet. Please add some!</p>
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading clearfix">
+        <div class="panel-title panel-title-main pull-left">
+          My friends
+        </div>
+      </div>  
+      <% if @friendships.size > 0 %>
+        <table class="table">
+      <tbody>
+          <% @friendships.each do |friend| %>
+            <tr>
+              <td><%= gravatar_for friend, size: 50 %></td>
+              <td>
+                <%= link_to friend.full_name, user_path(friend), class: "user-name-link" %>
+              </td>
+              <td><%= friend.email %></td>
+              <td>
+                <%= link_to "View Profile", user_path(friend), class: "btn btn-primary btn-xs" %>
+                <%= link_to 'Remove Friend', friendship_path(friend), :method => :delete,
+                                            :data => { :confirm => 'Are you sure?' },
+                                            :class => 'btn btn-xs btn-danger' %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <% else %>
+        <div class='panel-body'>
+          <p class="lead">You don't have any friends yet. Please add some!</p>
+        </div>
+      <% end %>  
+    </div>
   </div>
-<% end %>
+</div>  
+
+<%= content_for :right_menu do %>
+  <%= render 'friends/inviting' %>
+  <%= render 'friends/pending' %>
+<% end %>  
+  
+<%= render 'friends/lookup' %>

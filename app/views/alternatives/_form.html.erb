@@ -1,11 +1,4 @@
-<%= simple_form_for(Alternative.new, wrapper: :vertical_input_group,
-  :remote => true,
-  wrapper_mappings: {
-    check_boxes: :horizontal_radio_and_checkboxes,
-    radio_buttons: :horizontal_radio_and_checkboxes,
-    file: :horizontal_file_input,
-    boolean: :horizontal_boolean
-  }) do |f| %>
+<%= simple_form_for(Alternative.new, :remote => true) do |f| %>
   <div class="form-inputs">
     <%= f.input :name, wrapper: :vertical_input_group, label: false  do %>
       <%= f.input_field :name, class: "form-control", placeholder: "Type your alternative here" %>

@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable, :confirmable,
+  devise :invitable, :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
   has_many :alternatives
   has_one :alternative, :class_name => "Alternative", :foreign_key => :proposer_id
@@ -46,7 +46,11 @@ class User < ActiveRecord::Base
   def not_friends_with?(friend_id)
     friendships.where(friend_id: friend_id).count < 1
   end
-
+  
+  def friends_except_pending
+    friends.reject { |user| user if user.created_by_invite? && !user.invitation_accepted? }
+  end
+  
   def except_current_user(users)
     users.reject {|user| user.id == self.id}
   end

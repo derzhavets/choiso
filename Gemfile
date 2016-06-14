@@ -16,6 +16,7 @@ gem 'coffee-rails', '~> 4.1.0'
 
 # Custom gems
 gem 'devise'
+gem 'devise_invitable', github: 'scambra/devise_invitable'
 gem "twitter-bootstrap-rails"
 gem 'devise-bootstrap-views'
 gem 'simple_form'

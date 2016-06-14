@@ -8,8 +8,7 @@ class Proposals
   setup: ->
     $(document).on 'click', "[data-behavior='proposal-link']", (event) => (
       event.preventDefault()
-      link = $(this).data("url")
-      alert link
+      link = $(event.target).data("url")
       $.ajax(
         url: link
         dataType: "JSON"
@@ -24,10 +23,7 @@ class Proposals
       method: "GET"
       success: @showProposals
     );
-    
-  showAss: (data) =>
-    alert "This is ass!"
-  
+
   showProposals: (data) => (
     $("[data-behavior='show-proposers']").html("<li><a href='root_path'><strong>Examples by Choiso</strong></a></li>")
     types = $.map data.exampleable_types, (type) ->

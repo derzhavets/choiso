@@ -1,0 +1,12 @@
+<div class="panel panel-default">
+  <div class="panel-heading clearfix">
+    <div class="panel-title panel-title-main pull-left">
+      Pending invitations
+    </div>
+  </div>
+  <div class="panel-body">
+    <% @pending_friends.each do |pfriend| %>
+      <p><%= pfriend.email %></p>
+    <% end %>
+  </div>
+</div>  
