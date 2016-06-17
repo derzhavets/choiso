@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
     proposers = Array.new
     
     proposals.each do |proposal|
-      proposers << User.find(proposal.proposer.id)
+      proposers << User.find(proposal.proposer.id) if proposal.proposer != nil
     end
     return proposers.uniq
   end

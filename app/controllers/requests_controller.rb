@@ -23,7 +23,7 @@ class RequestsController < ApplicationController
         
           #Create notification
             Notification.create(recipient: receiver, actor: current_user, 
-                                notifiable: current_user.alternatives.first, action: "asked for")
+                                notifiable: Alternative.first, action: "asked for")
       end
       
 
