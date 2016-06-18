@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   
   before_action :authenticate_user!
   
-  helper_method :link_to_show_proposal, :notification_link_for, :notification_data_behavior_for
+  helper_method :link_to_show_proposal, :notification_link_for, :notification_data_behavior_for, :choiso_account_id
   
   def link_to_show_proposal(showable, proposer_id)
     return "/show_proposals?proposer_id=#{proposer_id}&showable=#{showable}"
@@ -27,4 +27,7 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  def choiso_account_id
+    return User.where(first_name: "choiso").first.id
+  end
 end

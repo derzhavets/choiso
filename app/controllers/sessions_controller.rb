@@ -10,7 +10,7 @@ class SessionsController < Devise::SessionsController
     # Set default proposals
     session[:showable] = "alternatives"
     session[:exampleable_type] = "basic"
-    session[:proposer_id] = 15
+    session[:proposer_id] = choiso_account_id
   end
 
   

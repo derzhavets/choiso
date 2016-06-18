@@ -10,7 +10,7 @@ class ProposalsController < ApplicationController
     @exampleable_types = Example.types_of(@showable)
     session[:proposer_id] = params[:proposer_id] if params[:proposer_id]
     
-    if session[:proposer_id] == 15
+    if session[:proposer_id] == choiso_account_id
       @type = session[:exampleable_type]
       @proposal_name = "#{@type.capitalize} #{@showable} examples by Choiso"
       @proposals = Example.for_showable_type(@showable, @type)
