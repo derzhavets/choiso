@@ -30,9 +30,11 @@ class User < ActiveRecord::Base
     proposers = Array.new
     
     proposals.each do |proposal|
-      proposers << User.find(proposal.proposer.id) if proposal.proposer != nil
+      if proposal.proposer != nil
+        proposers << User.find(proposal.proposer.id) if !proposers.include?(proposal.proposer)
+      end  
     end
-    return proposers.uniq
+    return proposers
   end
   
   def alternatives_proposed_by(proposer)
