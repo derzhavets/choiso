@@ -22,6 +22,6 @@ test:
 
 production:
   adapter: postgresql
-  database: heroku-postgres-69788b5c :: maroon
+  database: heroku-postgres-69788b5c::maroon
   pool: 5
   timeout: 5000
