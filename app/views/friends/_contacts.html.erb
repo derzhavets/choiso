@@ -1,27 +1,29 @@
-<div class="row">
-  <div class="col-md-12">
-    <div class="panel panel-default">
-      <div class="panel-heading clearfix">
-        <div class="panel-title pull-left" style="padding-top:6px;">
-          Ask for alternatives
-        </div>
-      </div>  
-      <div class="panel-body">
-          <table class="table table-striped">
-              <tbody>
-                <%= form_for @request do |f| %>
-                  <% current_user.friends.each do |friend| %>
-                    <tr>
-                      <td><%= check_box_tag 'friend_ids[]', friend.id %></td>
-                      <td><%= link_to friend.full_name, user_path(friend), class: "user-name-link" %></td>
-                          <%= f.hidden_field_tag 'collectible_type', "alternatives" %>
-                    </tr>
-                  <% end %>
-                </tbody>
-              </table>  
-                  <%= f.submit 'Send request', class: "btn btn-primary" %>
-                <% end %>  
-          </div>
+<div class="panel panel-default">
+  <div class="panel-heading clearfix">
+    <div class="panel-title pull-left" style="padding-top:6px;">
+      Ask your friends to propose you <%= session[:showable] %>
     </div>
+  </div>  
+  <div class="panel-body">
+    <% if current_user.friends_except_pending.count > 0 %>
+      <table class="table table-striped">
+        <tbody>
+            <%= form_for Request.new do |f| %>
+              <% current_user.friends_except_pending.each do |friend| %>
+                <tr>
+                  <td><%= check_box_tag 'friend_ids[]', friend.id %></td>
+                  <td><%= link_to friend.full_name, user_path(friend), class: "user-name-link" %></td>
+                      <%= f.hidden_field_tag 'collectible_type', "alternatives" %>
+                </tr>
+              <% end %>
+            </tbody>
+      </table>  
+      <%= f.submit 'Send request', class: "btn btn-primary" %>
+      <% end %>
+    <% else %>
+      <h4>You haven't added any friends yet. Search friends among Choiso users or invite new.</h4>
+      <br />
+      <%= render 'friends/lookup' %>
+    <% end %>
   </div>
-</div>  
+</div>

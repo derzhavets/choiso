@@ -1,5 +1,6 @@
 class SessionsController < Devise::SessionsController
-  
+  skip_before_action :require_login
+
   def create
     self.resource = warden.authenticate!(auth_options)
     set_flash_message!(:notice, :signed_in)
@@ -8,8 +9,6 @@ class SessionsController < Devise::SessionsController
     respond_with resource, location: after_sign_in_path_for(resource)
     
     # Set default proposals
-    session[:showable] = "alternatives"
-    session[:exampleable_type] = "basic"
     session[:proposer_id] = choiso_account_id
   end
 

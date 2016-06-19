@@ -39,5 +39,18 @@
   <%= render 'friends/inviting' %>
   <%= render 'friends/pending' %>
 <% end %>  
-  
-<%= render 'friends/lookup' %>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading clearfix">
+        <div class="panel-title panel-title-main pull-left">
+          Search for friends registred in Choiso
+        </div>
+      </div>  
+      <div class="panel-body">   
+        <%= render 'friends/lookup' %>
+      </div>
+    </div>
+  </div>
+</div>  

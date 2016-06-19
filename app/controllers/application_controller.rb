@@ -2,10 +2,8 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-  
-  before_action :authenticate_user!
-  
-  helper_method :link_to_show_proposal, :notification_link_for, :notification_data_behavior_for, :choiso_account_id
+  before_filter :require_login
+  helper_method :link_to_show_proposal, :notification_link_for, :notification_data_behavior_for, :choiso_account_id, :list_for
   
   def link_to_show_proposal(showable, proposer_id)
     return "/show_proposals?proposer_id=#{proposer_id}&showable=#{showable}"
@@ -19,6 +17,11 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  def list_for(showable)
+    send("#{showable}".to_sym)
+  end
+  
+  
   def notification_data_behavior_for(notification)
     if notification.action == "proposed"
       return "proposal-link"   
@@ -29,5 +32,13 @@ class ApplicationController < ActionController::Base
   
   def choiso_account_id
     return User.where(first_name: "choiso").first.id
+  end
+  
+  private
+
+  def require_login
+    unless current_user
+      redirect_to welcome_path
+    end
   end
 end

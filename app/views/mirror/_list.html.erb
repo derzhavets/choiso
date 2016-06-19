@@ -1,0 +1,36 @@
+<div class="panel panel-default">
+  <div class="panel-heading clearfix">
+    <div class="panel-title pull-left">
+      Define and evaluate your <%= showable.capitalize %>
+    </div>
+    <div class="btn-group pull-right">
+      <%= link_to root_path, class: "btn btn-default", id: "toggle-strengths", remote: true  do %>
+        <span id="toggle-alternatives-label">Collapse</span>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="panel-body" id="alternatives-body">
+    
+    <%= simple_form_for( "#{showable.singularize.capitalize}".constantize.new,
+                                              :url => "#{showable}", :remote => true) do |f| %>
+      <div class="form-inputs">
+        <%= f.input :name, wrapper: :vertical_input_group, label: false  do %>
+          <%= f.input_field :name, class: "form-control", placeholder: "Type your #{showable} here" %>
+          <span class="input-group-btn">
+            <%= f.button :submit, 'Add', class: "btn btn-primary" %>
+            <%= f.hidden_field_tag 'user_id', "#{@user.id}" %>
+            <%= link_to 'Show proposals', root_path, class: "btn btn-success" %>
+          </span>
+        <% end %>
+      </div>
+    <% end %>
+    
+    
+    <hr>
+    
+      <ul class="list-group" id="<%= showable %>-listing">
+        <%= render instance_variable_get("@#{showable}") %> 
+      </ul>  
+  </div>  
+</div>  

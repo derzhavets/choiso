@@ -4,7 +4,8 @@ class User < ActiveRecord::Base
   devise :invitable, :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
   has_many :alternatives
-  has_one :alternative, :class_name => "Alternative", :foreign_key => :proposer_id
+  has_many :strengths
+  has_many :weaknesses
   has_many :evaluations, :as => :rater
   has_many :friendships
   has_many :friends, through: :friendships

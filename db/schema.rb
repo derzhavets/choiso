@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160614121911) do
+ActiveRecord::Schema.define(version: 20160619174459) do
 
   create_table "alternatives", force: :cascade do |t|
     t.string   "name"
@@ -73,6 +73,16 @@ ActiveRecord::Schema.define(version: 20160614121911) do
     t.datetime "updated_at",       null: false
   end
 
+  create_table "strengths", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.integer  "proposer_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "strengths", ["proposer_id"], name: "index_strengths_on_proposer_id"
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -107,5 +117,15 @@ ActiveRecord::Schema.define(version: 20160614121911) do
   add_index "users", ["invitations_count"], name: "index_users_on_invitations_count"
   add_index "users", ["invited_by_id"], name: "index_users_on_invited_by_id"
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+
+  create_table "weaknesses", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.integer  "proposer_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "weaknesses", ["proposer_id"], name: "index_weaknesses_on_proposer_id"
 
 end

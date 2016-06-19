@@ -1,0 +1,14 @@
+<div class="row">
+  <div class="col-md-12">
+    <%= render 'mirror/list', :showable => "strengths" %>
+  </div>
+  <div class="col-md-12">
+    <%= render 'mirror/list', :showable => "weaknesses" %>
+  </div>
+</div>
+
+<%= content_for :right_menu do %>
+  <%= render 'common/proposals', :showable => "strengths" %>
+  <%= render 'friends/contacts' %>
+  <%= render 'friends/inviting' %>
+<% end %>

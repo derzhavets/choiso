@@ -4,8 +4,10 @@ Rails.application.routes.draw do
   
   resources :alternatives
   
+  resources :strengths
+  resources :weaknesses
   
-  devise_for :users, :controllers => { :registrations => "user/registrations", :sessions => "sessions" }
+  devise_for :users, :controllers => { :registrations => "user/registrations", :sessions => "sessions", :invitations => 'invitations'  }
   get 'my_friends', to: 'users#my_friends'
   resources :users, only: [:show]
   resources :friendships
@@ -19,10 +21,13 @@ Rails.application.routes.draw do
     end
   end
   
+  
+  
   get 'show_proposals', to: 'proposals#show'
   
   resources :requests, only: [:index, :create]
   
+  get 'welcome', to: 'welcome#start'
   
   get 'search_friends', to: 'users#search'
   post 'add_friend', to: 'users#add_friend'
@@ -30,7 +35,7 @@ Rails.application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
   
-  
+  get 'mirror', to: 'mirror#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

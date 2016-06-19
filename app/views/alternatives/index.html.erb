@@ -24,13 +24,13 @@
       </div>  
     </div>  
   </div>
+  <div class="col-md-12">
+    <%= render 'friends/contacts' %>
+  </div>
 </div>
 
 <!-- RIGHT MENU -->
 <% content_for :right_menu do %>
   <%= render 'common/proposals', :showable => "alternatives" %>
-<% end %>
-
-<%= content_for :right_menu do %>
-  <%= render 'friends/contacts' %>
+  <%= render 'friends/inviting' %>
 <% end %>

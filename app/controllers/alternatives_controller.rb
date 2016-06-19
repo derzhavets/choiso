@@ -1,11 +1,12 @@
 class AlternativesController < ApplicationController
   before_action :set_alternative, only: [:show, :edit, :update, :destroy]
-
+  
   # GET /alternatives
   # GET /alternatives.json
   def index
+    session[:showable] = "alternatives"
+    session[:exampleable_type] = "basic"
     @alternatives = current_user.own_alternatives
-    @request = Request.new
     @user = current_user
   end
 
