@@ -1,6 +1,7 @@
 json.exampleable_types do
   json.array! @exampleable_types do |type|
     json.name type.capitalize
+    json.url link_to_show_examples_of(@showable, type)
   end
 end
 
@@ -11,7 +12,10 @@ json.proposers do
   end
 end
 
-json.proposal_name @proposal_name
+json.proposal do
+  json.showable @showable
+  json.title @proposal_name
+end
 
 json.proposals do
   json.array! @proposals do |proposal|

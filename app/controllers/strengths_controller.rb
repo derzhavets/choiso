@@ -11,8 +11,8 @@ class StrengthsController < ApplicationController
         
         #Create notification
         if @strength.user != current_user
-          Notification.create(recipient: @alternative.user, actor: current_user, 
-                              notifiable: @alternative, action: "proposed")
+          Notification.create(recipient: @strength.user, actor: current_user, 
+                              notifiable: @strength, action: "proposed")
         end
         
         format.js

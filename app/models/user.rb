@@ -26,6 +26,18 @@ class User < ActiveRecord::Base
     alternatives.where(proposer_id: self.id)
   end
   
+  def own_strengths
+    strengths.where(proposer_id: self.id)
+  end
+  
+  def own_weaknesses
+    weaknesses.where(proposer_id: self.id)
+  end
+  
+  def proposals_for(showable, proposer)
+    send("#{showable}".to_sym).where(proposer_id: proposer.id)
+  end
+  
   def proposers_of(showable)
     proposals = send("#{showable}".to_sym).where("user_id = ? AND proposer_id != ?", self.id, self.id)
     proposers = Array.new
@@ -38,13 +50,20 @@ class User < ActiveRecord::Base
     return proposers
   end
   
-  def alternatives_proposed_by(proposer)
-    alternatives.where(proposer_id: proposer.id)
-  end
+
   
-  def alternative_proposed_for(user)
+  def alternatives_proposed_for(user)
     user.alternatives.where(proposer: self)
   end
+  
+  def strengths_proposed_for(user)
+    user.strengths.where(proposer: self)
+  end
+  
+  def weaknesses_proposed_for(user)
+    user.weaknesses.where(proposer: self)
+  end
+
   
   def not_friends_with?(friend_id)
     friendships.where(friend_id: friend_id).count < 1

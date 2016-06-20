@@ -11,18 +11,20 @@
           <% end %>
         </div>
       </div>
-    
       <div class="panel-body" id="alternatives-body">
-        
         <%= render 'alternatives/form' %>
         <hr>
-        
           <ul class="list-group" id="alternatives-listing">
             <%= render @alternatives %> 
           </ul>  
-        
       </div>  
     </div>  
+  </div>
+  <div class="col-md-12">
+    <%= render 'mirror/list', :showable => "strengths" %>
+  </div>
+  <div class="col-md-12">
+    <%= render 'mirror/list', :showable => "weaknesses" %>
   </div>
 </div>
 

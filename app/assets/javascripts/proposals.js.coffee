@@ -23,21 +23,27 @@ class Proposals
       method: "GET"
       success: @showProposals
     );
-
+  
   showProposals: (data) => (
     $("[data-behavior='show-proposers']").html("<li><a href='root_path'><strong>Examples by Choiso</strong></a></li>")
     types = $.map data.exampleable_types, (type) ->
-      "<li><a href='root_path'>#{type.name} examples</a></li>"
+      "<li><a href='#' data-behavior='proposal-link' data-url='#{type.url}'>#{type.name} examples</a></li>"
     $("[data-behavior='show-proposers']").append(types)
+    
     $("[data-behavior='show-proposers']").append("<li><a href='root_path'><strong>Proposals by users</strong></a></li>")
     
     proposers = $.map data.proposers, (proposer) ->
       "<li><a href='#' data-behavior='proposal-link' data-url='#{proposer.url}'>#{proposer.name}</a></li>"
     $("[data-behavior='show-proposers']").append(proposers)
-    $("[data-behavior='show-proposal-name']").html(data.proposal_name)
+    
+    $("[data-behavior='show-proposal-name']").html(data.proposal.title)
+    $("#request-topic").html(data.proposal.showable)
+    
     proposals = $.map data.proposals, (proposal) ->
       "<tr><td>#{proposal.name}</td></tr>"
     $("[data-behavior='show-proposals']").html(proposals)
+    
+    
   );
   
 jQuery ->

@@ -11,14 +11,20 @@ class ProposalsController < ApplicationController
     session[:proposer_id] = params[:proposer_id] if params[:proposer_id]
     
     if session[:proposer_id] == choiso_account_id
-      @type = session[:exampleable_type]
+      if params[:exampleable_type]
+        @type = params[:exampleable_type]
+      else
+        @type = session[:exampleable_type]
+      end
+      
       @proposal_name = "#{@type.capitalize} #{@showable} examples by Choiso"
       @proposals = Example.for_showable_type(@showable, @type)
     else
       @proposer = User.find(session[:proposer_id])
       @proposal_name = "#{@showable.capitalize} proposals by #{@proposer.full_name}"
-      @proposals = current_user.alternatives_proposed_by(@proposer)
+      @proposals = current_user.proposals_for(@showable, @proposer)
     end
+    
+    session[:showable] = @showable
   end
-  
 end

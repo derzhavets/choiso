@@ -14,11 +14,14 @@
         <div class="col-md-12 form-group">
             &nbsp;
         </div>
-        <div class="col-md-12">
-            <%= f.submit 'Invite friend', class: 'btn btn btn-success' do %>
+        <div class="col-md-4">
+            <%= f.submit 'Send email', class: 'btn btn btn-success' do %>
               <i class='fa fa-search'></i> Look up a friend
             <% end %>
           <% end %>
+        </div>
+        <div class="col-md-6">
+          <%= link_to 'Invite from Facebook', root_path, class: "btn btn-primary" %>
         </div>
       </div>
     </div>
