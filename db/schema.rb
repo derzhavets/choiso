@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160619174459) do
+ActiveRecord::Schema.define(version: 20160621081226) do
 
   create_table "alternatives", force: :cascade do |t|
     t.string   "name"
@@ -23,6 +23,16 @@ ActiveRecord::Schema.define(version: 20160619174459) do
 
   add_index "alternatives", ["proposer_id"], name: "index_alternatives_on_proposer_id"
   add_index "alternatives", ["user_id"], name: "index_alternatives_on_user_id"
+
+  create_table "critical_points", force: :cascade do |t|
+    t.integer  "alternative_id"
+    t.integer  "point_id"
+    t.string   "point_type"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "critical_points", ["point_type", "point_id"], name: "index_critical_points_on_point_type_and_point_id"
 
   create_table "evaluations", force: :cascade do |t|
     t.integer  "score"

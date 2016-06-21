@@ -1,0 +1,74 @@
+<% current_user.own_alternatives.each do |alternative| %>
+  <div class="panel panel-default">
+    <div class="panel-heading clearfix">
+      <div class="panel-title pull-left">
+        Define critical points for <%= alternative.name %>
+      </div>
+    </div>
+      <table class="table table-striped">
+        <thead>
+          <tr><th>Current</th></tr>
+        </thead>
+        <tbody>
+          <% alternative.critical_points.each do |point| %>
+            <tr>
+              <td>
+                <%= link_to critical_point_path(point), method: :delete, id: "destroy_alternative",
+                    data: { confirm: 'Are you sure you want to delete this critical points?' },
+                    :class => 'destroy_alternative' do %>
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                <% end %>
+                &nbsp;
+                <%= point.point.name.capitalize %>
+              </td>
+            </tr>
+          <% end %>    
+        </tbody>
+      </table>
+  
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-4 col-xs-6">
+          <table class="table table-striped">
+            <thead>
+              <tr><th>Strengths</th></tr>
+            </thead>
+            <tbody>
+              <%= form_for CriticalPoint.new do |f| %>
+                <% current_user.strengths.except_assigned_for(alternative, current_user.own_strengths).each do |strength| %>
+                  <tr>
+                    <td><%= check_box_tag 'point_ids[]', strength.id %> &nbsp;
+                    <%= strength.name %></td>
+                    <%= f.hidden_field_tag 'point_type', strength.class %>
+                  </tr>
+                <% end %>
+            </tbody>
+          </table>
+                <%= f.hidden_field_tag 'alternative_id', alternative.id %>
+                <%= f.submit 'Set', class: "btn btn-primary" %>
+              <% end %> 
+        </div>
+        <div class="col-md-4 col-xs-6">
+          <table class="table table-striped">
+            <thead>
+              <tr><th>Weaknesses</th></tr>
+            </thead>
+              <tbody>
+              <%= form_for CriticalPoint.new do |f| %>
+                <% current_user.weaknesses.except_assigned_for(alternative, current_user.own_weaknesses).each do |weakness| %>
+                  <tr>
+                    <td><%= check_box_tag 'point_ids[]', weakness.id %> &nbsp;
+                    <%= weakness.name %></td>
+                    <%= f.hidden_field_tag 'point_type', weakness.class.to_s %>
+                  </tr>
+                <% end %>
+            </tbody>
+          </table>
+                <%= f.hidden_field_tag 'alternative_id', alternative.id %>
+                <%= f.submit 'Set', class: "btn btn-primary" %>
+              <% end %> 
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>  

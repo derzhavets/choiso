@@ -17,11 +17,11 @@ class ProposalsController < ApplicationController
         @type = session[:exampleable_type]
       end
       
-      @proposal_name = "#{@type.capitalize} #{@showable} examples by Choiso"
+      @proposal_name = "#{@type.capitalize} #{@showable.singularize} examples by Choiso"
       @proposals = Example.for_showable_type(@showable, @type)
     else
       @proposer = User.find(session[:proposer_id])
-      @proposal_name = "#{@showable.capitalize} proposals by #{@proposer.full_name}"
+      @proposal_name = "#{@showable.singularize.capitalize} proposals by #{@proposer.full_name}"
       @proposals = current_user.proposals_for(@showable, @proposer)
     end
     

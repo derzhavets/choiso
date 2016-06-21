@@ -5,11 +5,6 @@
         <div class="panel-title pull-left">
           Define and evaluate your alternatives
         </div>
-        <div class="btn-group pull-right">
-          <%= link_to root_path, class: "btn btn-default", id: "toggle-alternatives", remote: true  do %>
-            <span id="toggle-alternatives-label">Collapse</span>
-          <% end %>
-        </div>
       </div>
       <div class="panel-body" id="alternatives-body">
         <%= render 'alternatives/form' %>

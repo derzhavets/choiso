@@ -6,7 +6,8 @@ Rails.application.routes.draw do
   
   resources :strengths
   resources :weaknesses
-  
+  resources :critical_points
+
   devise_for :users, :controllers => { :registrations => "user/registrations", :sessions => "sessions", :invitations => 'invitations'  }
   get 'my_friends', to: 'users#my_friends'
   resources :users, only: [:show]
