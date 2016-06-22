@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   before_filter :require_login
   helper_method :link_to_show_proposal, :notification_link_for, 
                 :notification_data_behavior_for, :choiso_account_id, 
-                :list_for, :link_to_show_examples_of, :link_to_change_proposal
+                :list_for, :link_to_show_examples_of, :link_to_change_proposal, :style_for
   
   def link_to_show_proposal(showable, proposer_id)
     return "/show_proposals?proposer_id=#{proposer_id}&showable=#{showable}"
@@ -17,6 +17,11 @@ class ApplicationController < ActionController::Base
   
   def link_to_change_proposal(showable)
     return "/show_proposals?showable=#{showable}"
+  end
+  
+  def style_for(trait)
+    return "btn-success" if trait.class == "Strength"
+    return "btn-danger" if trait.class == "Weakness"
   end
   
   def notification_link_for(notification)

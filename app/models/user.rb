@@ -30,9 +30,20 @@ class User < ActiveRecord::Base
     strengths.where(proposer_id: self.id)
   end
   
+  # Critical points
+  
+  def unassigned_critical_points_for(alternative, trait)  
+    send("own_#{trait}".to_sym).except_assigned_for(alternative, self.send("own_#{trait}".to_sym))
+  end
+  
+  def self.trait_unassigned_to(trait, alternative)
+    send("#{trait}".to_sym).reject { |str| alternative.strengths.include?(str)  }
+  end
+  
   def own_weaknesses
     weaknesses.where(proposer_id: self.id)
   end
+  
   
   def proposals_for(showable, proposer)
     send("#{showable}".to_sym).where(proposer_id: proposer.id)

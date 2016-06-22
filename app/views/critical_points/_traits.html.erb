@@ -1,0 +1,7 @@
+<div id="traits-listing-<%= current_user.own_alternatives.index(alternative) %>-<%= @traits.index(traits) %>">
+  <% current_user.unassigned_critical_points_for(alternative, traits).each do |trait| %>
+    <div>
+      <%= render partial: "trait", object: trait, locals: { :alternative => alternative } %>
+    </div>
+  <% end %>
+</div> 
