@@ -1,13 +1,13 @@
-<% current_user.own_alternatives.each do |alternative| %>
+<% @user.own_alternatives.each do |alternative| %>
   <div class="panel panel-default">
     <div class="panel-heading clearfix">
       <div class="panel-title pull-left">
-        Which of your traits are critical to <%= alternative.name %>?
+        Which of <%= display_name_for(@user) %> traits are critical to <%= alternative.name %>?
       </div>
     </div>
     <div class="panel-body">
-      <ul class="list-group" id="critical-points-<%= current_user.own_alternatives.index(alternative) %>">
-        <%= render partial: "critical_point", collection: alternative.critical_points %>
+      <ul class="list-group" id="critical-points-<%= @user.own_alternatives.index(alternative) %>">
+        <%= render partial: "critical_point", collection: alternative.critical_points_by(current_user) %>
       </ul>
     </div>   
     <div class="panel-body">
@@ -29,4 +29,10 @@
       </div>
     </div>
   </div>
-<% end %>  
+<% end %>
+
+<% if @user != current_user %>
+  <% content_for :right_menu do %>
+    <%= render 'users/profile' %>
+  <% end %>
+<% end %>

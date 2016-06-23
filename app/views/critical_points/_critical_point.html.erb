@@ -1,6 +1,6 @@
 <li class="list-group-item">
     <%= link_to critical_point_path(critical_point), method: :delete, id: "destroy_critical_point",
-        data: { confirm: 'Are you sure you want to delete this critical points?' },
+        data: { confirm: 'Are you sure you want to delete this critical point and all its evaluations?' },
         :class => 'destroy-critical-point', remote: true do %>
       <i class="fa fa-times" aria-hidden="true"></i>
     <% end %>

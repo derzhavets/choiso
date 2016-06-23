@@ -1,4 +1,4 @@
-$('#critical-points-<%= current_user.own_alternatives.index(@alternative) %>').append('<%= j render @critical_point %>');
+$('#critical-points-<%= @user.own_alternatives.index(@alternative) %>').append('<%= j render @critical_point %>');
 $('.remove-trait').bind('ajax:success', function() {  
         $(this).closest('div').fadeOut();
 });  

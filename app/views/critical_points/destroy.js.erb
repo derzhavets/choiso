@@ -2,4 +2,4 @@ $('.destroy-critical-point').bind('ajax:success', function() {
         $(this).closest('li').fadeOut();
 });
 
-$('#traits-listing-<%= current_user.own_alternatives.index(@alternative) %>-<%= @traits.index(@critical_point.point.class.to_s) %>').append('<%= j render partial: "trait", object: @critical_point.point, locals: { :alternative => @alternative } %>');
+$('#traits-listing-<%= @user.own_alternatives.index(@alternative) %>-<%= @traits.index(@critical_point.point.class.to_s) %>').append('<%= j render partial: "trait", object: @critical_point.point, locals: { :alternative => @alternative } %>');

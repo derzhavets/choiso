@@ -10,7 +10,12 @@ Rails.application.routes.draw do
 
   devise_for :users, :controllers => { :registrations => "user/registrations", :sessions => "sessions", :invitations => 'invitations'  }
   get 'my_friends', to: 'users#my_friends'
-  resources :users, only: [:show]
+  resources :users, only: [:show] do
+    collection do
+      get '/:id/propose_critical_points', to: 'critical_points#index', as: 'propose_critical_points'
+    end
+  end
+    
   resources :friendships
   
   resources :requests
@@ -41,10 +46,8 @@ Rails.application.routes.draw do
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
-  get 'users/:id/propose_alternatives', to: 'alternatives#propose', as: :propose_alternatives
   post 'add_proposal', to: 'alternatives#add_proposal'
   get 'show_examples', to: 'alternatives#show_examples'
-  delete 'remove_proposal/:id/', to: 'alternatives#destroy_proposal', as: :remove_proposal
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   # get 'products/:id/purchase' => 'catalog#purchase', as: :purchase

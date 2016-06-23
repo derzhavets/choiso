@@ -30,4 +30,9 @@
 
 <% content_for :right_menu do %>
   <%= render 'users/profile' %>
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <%= link_to 'Propose critical points', propose_critical_points_users_path(@user), class: "btn btn-success" %>
+    </div>
+  </div>
 <% end %>

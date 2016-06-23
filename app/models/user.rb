@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   has_many :friends, through: :friendships
   has_many :notifications, foreign_key: :recipient_id
   has_many :requests, foreign_key: :receiver_id
+  has_many :critical_points
   
   
   def full_name
@@ -32,8 +33,9 @@ class User < ActiveRecord::Base
   
   # Critical points
   
-  def unassigned_critical_points_for(alternative, trait)  
-    send("own_#{trait}".to_sym).except_assigned_for(alternative, self.send("own_#{trait}".to_sym))
+  def not_assigned_to(alternative, trait)
+    @traits = self.send("#{trait}".to_sym)
+    @traits.reject { |traitus| alternative.critical_points.proposed_by(self).include?(traitus) }
   end
   
   def self.trait_unassigned_to(trait, alternative)
