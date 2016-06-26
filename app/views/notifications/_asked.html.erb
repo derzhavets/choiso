@@ -1,0 +1,7 @@
+<li>
+  <%= link_to notification_link_for(notification), class: "dropdown-item #{"unread" if !notification.read_at?}" do %>
+    <%= notification.actor.full_name %>
+    <%= notification.action %> you 
+    to propose his <%= notification.notifiable_type.pluralize %>
+  <% end %>
+</li>  

@@ -1,0 +1,7 @@
+<li>
+  <%= link_to '#', :data => { behavior: "proposal-link", url: notification_link_for(notification)  }, class: "dropdown-item #{"unread" if !notification.read_at?}" do %>
+    <%= notification.actor.full_name %>
+    <%= notification.action %>
+    a <%= notification.notifiable_type.pluralize %> for you
+  <% end %>
+</li>  

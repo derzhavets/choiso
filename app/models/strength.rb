@@ -12,4 +12,9 @@ class Strength < ActiveRecord::Base
   def self.except_assigned_for(alternative, strengths)
     strengths.reject { |str| alternative.strengths.include?(str)  }
   end
+  
+  def critcal_points_for(alternative)
+    critical_points.where(alternative_id: alternative.id)
+  end
+  
 end

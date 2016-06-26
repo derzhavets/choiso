@@ -23,7 +23,7 @@ class RequestsController < ApplicationController
         
           #Create notification
             Notification.create(recipient: receiver, actor: current_user, 
-                                notifiable: "#{collectible_type}".singularize.capitalize.constantize.first, action: "asked for")
+                                notifiable: "#{collectible_type}".singularize.capitalize.constantize.first, action: "asked")
       end
       
 

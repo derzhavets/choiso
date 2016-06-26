@@ -13,5 +13,9 @@ class Weakness < ActiveRecord::Base
   def self.except_assigned_for(alternative, weaknesses)
     weaknesses.reject { |wea| alternative.weaknesses.include?(wea)  }
   end
+   
+  def critcal_points_for(alternative)
+    critical_points.where(alternative_id: alternative.id)
+  end 
     
 end

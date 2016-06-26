@@ -1,7 +1,7 @@
 class CriticalPointsController < ApplicationController
   def index
-    if params[:id]
-      @user = User.find(params[:id])
+    if params[:proposer_id]
+      @user = User.find(params[:proposer_id])
     else
       @user = current_user
     end

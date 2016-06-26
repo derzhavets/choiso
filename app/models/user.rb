@@ -31,15 +31,11 @@ class User < ActiveRecord::Base
     strengths.where(proposer_id: self.id)
   end
   
+  
   # Critical points
   
-  def not_assigned_to(alternative, trait)
-    @traits = self.send("#{trait}".to_sym)
-    @traits.reject { |traitus| alternative.critical_points.proposed_by(self).include?(traitus) }
-  end
-  
-  def self.trait_unassigned_to(trait, alternative)
-    send("#{trait}".to_sym).reject { |str| alternative.strengths.include?(str)  }
+  def not_assigned_to(alternative, traits)
+    self.send("own_#{traits}".to_sym).reject { |trait| alternative.critical_points_by(self).points_of_type(traits).include?(trait) }
   end
   
   def own_weaknesses

@@ -8,6 +8,7 @@ class AlternativesController < ApplicationController
     session[:exampleable_type] = "basic"
     @alternatives = current_user.own_alternatives
     @user = current_user
+    session[:show_help] = true
   end
 
   # GET /alternatives/1
