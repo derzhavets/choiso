@@ -1,0 +1,2 @@
+$('#requirements-listing-<%= @requirement.user.own_alternatives.index(@requirement.alternative) %>').append('<%= j render(@requirement) %>');
+$('#requirement_name').val('');

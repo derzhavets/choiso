@@ -19,10 +19,12 @@ class RequestsController < ApplicationController
         end
       
         collectible_type = session[:showable].singularize if params[:collectible_type]
-        @request = Request.create(sender: current_user, receiver: receiver, evaluable: evaluable, collectible_type: collectible_type) unless Request.exists?(:receiver_id => receiver.id, :sender_id => current_user.id, :evaluable_id => evaluable_id, :collectible_type => collectible_type)
         
-          #Create notification
-            Notification.create(recipient: receiver, actor: current_user, 
+        @request = Request.new(sender: current_user, receiver: receiver, evaluable: evaluable, collectible_type: collectible_type)
+        @request.save unless @request.already_exists?  
+        
+        #Create notification
+        Notification.create(recipient: receiver, actor: current_user, 
                                 notifiable: "#{collectible_type}".singularize.capitalize.constantize.first, action: "asked")
       end
       

@@ -9,8 +9,7 @@ class SessionsController < Devise::SessionsController
     respond_with resource, location: after_sign_in_path_for(resource)
     
     # Set default proposals
-    session[:proposer_id] = choiso_account_id
+    user_session.set_proposer(User.choiso_account_id)
   end
-
   
 end

@@ -1,0 +1,22 @@
+<% @user.own_alternatives.each do |alternative| %>
+  <div class="panel panel-default">
+    <div class="panel-heading clearfix">
+      <div class="panel-title pull-left">
+        Collect and evaluate requirements to <%= alternative.name.capitalize %>
+      </div>
+    </div>
+    <div class="panel-body">
+      <%= render partial: 'requirements/form', locals: {alternative: alternative} %>
+      
+    <hr>  
+      
+    <ul class="list-group" id="requirements-listing-<%= @user.own_alternatives.index(alternative) %>">
+      <%= render alternative.requirements_by(@user) %>
+    </ul>  
+    </div>
+  </div>
+<% end %>
+
+<% content_for :right_menu do %>
+    <%= render 'common/proposals', :showable => "requirements" %>
+<% end %>

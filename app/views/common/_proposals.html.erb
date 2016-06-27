@@ -15,14 +15,12 @@
       <div class="panel-body" id="proposals-body">
         <div class="dropdown">
           <p class="dropdown-toggle dropdown-toggle-header" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            <span data-behavior="show-proposal-name"></span>
+            <span data-behavior="proposal-title"></span>
             <span class="caret"></span>
           </p>
-            <ul class="dropdown-menu" data-behavior="show-proposers" class="show-proposers"></ul>
+            <ul class="dropdown-menu" data-behavior="proposals-dropdown"></ul>
         </div>
-        <table class="table table-striped">
-          <tbody data-behavior="show-proposals"></tbody>
-        </table>
+        <table class="table table-striped" data-behavior="proposal-list"></table>
       </div>  
     </div>
   </div>

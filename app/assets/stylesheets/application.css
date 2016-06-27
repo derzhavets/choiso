@@ -14,7 +14,3 @@
  *= require devise_bootstrap_views
  *= require_self
  */
-
-.unread {
-  border-left: 3px solid red;
-}

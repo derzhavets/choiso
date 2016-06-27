@@ -6,6 +6,7 @@ class Alternative < ActiveRecord::Base
   has_many :requests, :as => :evaluable
   
   has_many :critical_points, dependent: :destroy
+  has_many :requirements, dependent: :destroy
   
   #experiments
   has_many :weaknesses, :through => :critical_points, :source => :point, :source_type => 'Weakness'
@@ -20,5 +21,13 @@ class Alternative < ActiveRecord::Base
   
   def traits_unassigned_by(trait, user)
     alternaitve.critical_points.reject { |point| point.trait == trait  }
+  end
+  
+  def requirements_by(user)
+    requirements.where(proposer_id: user.id)
+  end
+  
+  def self.proposed_by(user)
+    where(proposer: user)
   end
 end

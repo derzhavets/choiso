@@ -7,12 +7,14 @@ Rails.application.routes.draw do
   resources :strengths
   resources :weaknesses
   resources :critical_points
+  resources :requirements
 
   devise_for :users, :controllers => { :registrations => "user/registrations", :sessions => "sessions", :invitations => 'invitations'  }
   get 'my_friends', to: 'users#my_friends'
   resources :users, only: [:show] do
     collection do
       get '/:id/propose_critical_points', to: 'critical_points#index', as: 'propose_critical_points'
+      get '/:id/propose_requirements', to: 'requirements#index', as: 'propose_requirements'
     end
   end
     

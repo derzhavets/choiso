@@ -1,0 +1,18 @@
+<li><a href='root_path'><strong>Examples by Choiso</strong></a></li>
+  <% Example.types_of(proposal.showable).each do |type| %>
+    <li>
+      <%= link_to "#{type.capitalize}", '#', 
+                    data: { :behavior => "proposal-link", 
+                    :url => link_to_show_examples_of(proposal.showable, type) }, 
+                    class: "dropdown-item" %>
+    </li>                
+  <% end %>
+<li><a href='root_path'><strong>Proposals by users</strong></a></li>
+  <% current_user.proposers_of(proposal.showable).each do |proposer| %>
+    <li>
+      <%= link_to "#{proposer.full_name}", '#',
+                                        data: { :behavior => "proposal-link", 
+                                        :url => link_to_show_proposal(proposal.showable, proposer.id) }, 
+                                        class: "dropdown-item" %>
+    </li>
+  <% end %>

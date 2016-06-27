@@ -1,30 +1,10 @@
 class ProposalsController < ApplicationController
   def show
-    if params[:showable]
-      @showable = params[:showable]
-    else
-      @showable = session[:showable]
-    end
+    user_session.set_proposer(params[:proposer_id])
+    user_session.set_showable(params[:showable])
+    user_session.set_exampleable(params[:exampleable_type])
     
-    @proposers = current_user.proposers_of(@showable)
-    @exampleable_types = Example.types_of(@showable)
-    session[:proposer_id] = params[:proposer_id] if params[:proposer_id]
-    
-    if session[:proposer_id] == choiso_account_id
-      if params[:exampleable_type]
-        @type = params[:exampleable_type]
-      else
-        @type = session[:exampleable_type]
-      end
-      
-      @proposal_name = "#{@type.capitalize} #{@showable.singularize} examples by Choiso"
-      @proposals = Example.for_showable_type(@showable, @type)
-    else
-      @proposer = User.find(session[:proposer_id])
-      @proposal_name = "#{@showable.singularize.capitalize} proposals by #{@proposer.full_name}"
-      @proposals = current_user.proposals_for(@showable, @proposer)
-    end
-    
-    session[:showable] = @showable
+    @proposal = Proposal.new(proposer: user_session.proposer, user: current_user, 
+                                showable: user_session.showable, exampleable_type: user_session.exampleable)
   end
 end

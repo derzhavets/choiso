@@ -3,6 +3,6 @@ class MirrorController < ApplicationController
     @user = current_user
     @strengths = current_user.own_strengths
     @weaknesses = current_user.own_weaknesses
-    session[:showable] = "strengths"
+    user_session.set_showable("strengths")
   end
 end

@@ -34,5 +34,8 @@
     <div class="col-md-12 text-center">
       <%= link_to 'Propose critical points', propose_critical_points_users_path(:proposer_id => @user.id), class: "btn btn-success" %>
     </div>
+    <div class="col-md-12 text-center">
+      <%= link_to 'Propose requirements', propose_requirements_users_path(:proposer_id => @user.id), class: "btn btn-success" %>
+    </div>
   </div>
 <% end %>

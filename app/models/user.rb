@@ -12,11 +12,17 @@ class User < ActiveRecord::Base
   has_many :notifications, foreign_key: :recipient_id
   has_many :requests, foreign_key: :receiver_id
   has_many :critical_points
+  has_many :requirements
   
   
   def full_name
     return "#{first_name} #{last_name}".strip if (first_name || last_name)
     "Anonymous"
+  end
+  
+  def self.choiso_account_id
+    @choiso = User.where(first_name: "choiso").first
+    return @choiso.id
   end
   
   def requests_from(user)
@@ -44,7 +50,7 @@ class User < ActiveRecord::Base
   
   
   def proposals_for(showable, proposer)
-    send("#{showable}".to_sym).where(proposer_id: proposer.id)
+    send("#{showable}".to_sym).where(proposer: proposer)
   end
   
   def proposers_of(showable)

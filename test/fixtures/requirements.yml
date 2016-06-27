@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  alternative_id: 1
+  name: MyString
+  user_id: 1
+  proposer_id: 1
+
+two:
+  alternative_id: 1
+  name: MyString
+  user_id: 1
+  proposer_id: 1

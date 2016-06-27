@@ -1,0 +1,8 @@
+<% current_user.own_alternatives.each do |alternative| %>
+  <thead><tr><td><h4><%= alternative.name.capitalize %></h4></td></tr></thead>
+  <tbody>
+    <% alternative.requirements.proposed_by(@proposal.proposer).each do |requirement| %>
+      <tr><td><%= requirement.name %></td></tr>
+    <% end %>
+  </tbody>
+<% end %>
