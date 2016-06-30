@@ -1,19 +1,19 @@
 <div class="panel panel-default">
   <div class="panel-heading clearfix">
     <div class="panel-title pull-left" style="padding-top:6px;">
-      Ask your friends to propose you <span id="request-topic"><%= session[:showable] %></span>
+      Ask your friends to propose you <span id="request-topic"><%= user_session.showable %></span>
     </div>
   </div>  
   <div class="panel-body">
     <% if current_user.friends_except_pending.count > 0 %>
       <table class="table table-striped">
         <tbody>
-            <%= form_for Request.new do |f| %>
+            <%= form_for Request.new, remote: true do |f| %>
               <% current_user.friends_except_pending.each do |friend| %>
                 <tr>
                   <td><%= check_box_tag 'friend_ids[]', friend.id %></td>
                   <td><%= link_to friend.full_name, user_path(friend), class: "user-name-link" %></td>
-                      <%= f.hidden_field_tag 'collectible_type', session[:showable] %>
+                      <%= f.hidden_field_tag 'collectible_type', user_session.showable %>
                 </tr>
               <% end %>
             </tbody>

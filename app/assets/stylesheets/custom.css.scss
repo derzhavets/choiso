@@ -1,3 +1,8 @@
+body {
+  //background-image:url('background.png');
+  background-color: #cccccc;
+}
+
 .dropdown-toggle-header {
   color: #111111;
   font-size: 17px;
@@ -25,4 +30,19 @@ a.btn-default:visited { color: black !important; }
 
 .weakness-point-style {
   border-left: 4px solid red;
+}
+
+.label-default {
+    background-color: #e8e8e8;
+}
+
+.label-success {
+  background-color: #5cb85c !important;
+  cursor: pointer; 
+  cursor: hand; 
+}
+
+.label { 
+  cursor: pointer; 
+  cursor: hand; 
 }

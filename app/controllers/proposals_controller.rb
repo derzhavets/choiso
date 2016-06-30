@@ -5,6 +5,6 @@ class ProposalsController < ApplicationController
     user_session.set_exampleable(params[:exampleable_type])
     
     @proposal = Proposal.new(proposer: user_session.proposer, user: current_user, 
-                                showable: user_session.showable, exampleable_type: user_session.exampleable)
+                             showable: user_session.showable, exampleable_type: user_session.exampleable)
   end
 end

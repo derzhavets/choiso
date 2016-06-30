@@ -6,23 +6,27 @@ class CriticalPointsController < ApplicationController
       @user = current_user
     end
     
-    session[:showable] = "critical_points"
-    session[:exampleable_type] = "basic"
+    user_session.set_showable("critical_points")
+    user_session.set_exampleable("basic")
     
     @traits = ["strengths","weaknesses"]
   end
   
   def create
-    @alternative = Alternative.find(params[:alternative_id])
-    @user = @alternative.user
-    @critical_point = CriticalPoint.new(alternative_id: params[:alternative_id], point_type: params[:point_type], 
-              point_id: params[:point_id], proposer_id: params[:proposer_id], user: @user)
-
+    @critical_point = CriticalPoint.new(critical_point_params)
+    @critical_point.user = @critical_point.alternative.user
     
-    if @critical_point.save
-      respond_to do |format|
-        format.js
-      end
+    @critical_point.save unless @critical_point.already_exists?
+    
+    #Create notification
+    if @critical_point.user != current_user
+      @notification = Notification.new(recipient: @critical_point.user, actor: current_user, 
+                          notifiable: @critical_point, action: "proposed")
+      @notification.save if @notification.relevant?                  
+    end
+    
+    respond_to do |format|
+      format.js
     end
   end
   
@@ -36,5 +40,11 @@ class CriticalPointsController < ApplicationController
     respond_to do |format|
       format.js
     end
+  end
+  
+  private
+  
+  def critical_point_params
+    params.require(:critical_point).permit(:alternative_id, :point_type, :point_id, :proposer_id)
   end
 end

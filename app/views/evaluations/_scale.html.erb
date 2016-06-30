@@ -1,0 +1,12 @@
+    <% form_id = "alternative_#{alternative.id}_evaluation" %>
+      <%= form_for alternative.evaluations.last || alternative.evaluations.build, :html => {:id => form_id, :class => "evaluation_form"} do |f| %>
+        <%= f.hidden_field :rateable_id, :value => alternative.id %>
+        <%= f.hidden_field :rater_id, :value => @user.id %>
+        <%= f.hidden_field :score, :id => form_id + "_score" %>
+      <% end %>
+    
+        <div class="pull-right">
+          <% (1..3).each do |i| %>
+            <span class="label-default rating_score" id="<%= form_id %>_<%= i %>" data-value="<%= i %>" data-form-id="<%= form_id %>">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          <% end %>
+        </div>

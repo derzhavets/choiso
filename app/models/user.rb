@@ -40,8 +40,8 @@ class User < ActiveRecord::Base
   
   # Critical points
   
-  def not_assigned_to(alternative, traits)
-    self.send("own_#{traits}".to_sym).reject { |trait| alternative.critical_points_by(self).points_of_type(traits).include?(trait) }
+  def not_assigned_to(alternative, traits, proposer)
+    self.send("own_#{traits}".to_sym).reject { |trait| alternative.critical_points_by(proposer).points_of_type(traits).include?(trait) }
   end
   
   def own_weaknesses

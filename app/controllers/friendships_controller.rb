@@ -7,7 +7,8 @@ class FriendshipsController < ApplicationController
     
     if current_user.save
       respond_to do |format|
-        format.html { redirect_to my_friends_path, notice: "Right here" }
+        #format.html { redirect_to my_friends_path, notice: "Right here" }
+        format.js
       end
     else
       respond_to do |format|

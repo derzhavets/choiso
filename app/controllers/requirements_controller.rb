@@ -24,8 +24,9 @@ class RequirementsController < ApplicationController
         
         #Create notification
         if @requirement.user != current_user
-          Notification.create(recipient: @requirement.user, actor: current_user, 
+          @notification = Notification.new(recipient: @requirement.user, actor: current_user, 
                               notifiable: @requirement, action: "proposed")
+          @notification.save if @notification.relevant?                  
         end
         
         format.js

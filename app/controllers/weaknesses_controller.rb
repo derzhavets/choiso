@@ -11,8 +11,9 @@ class WeaknessesController < ApplicationController
         
         #Create notification
         if @weakness.user != current_user
-          Notification.create(recipient: @weakness.user, actor: current_user, 
+          @notification = Notification.new(recipient: @weakness.user, actor: current_user, 
                               notifiable: @weakness, action: "proposed")
+          @notification.save if @notification.relevant?                  
         end
         
         format.js

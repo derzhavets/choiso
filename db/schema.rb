@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160627123518) do
+ActiveRecord::Schema.define(version: 20160628131811) do
 
   create_table "alternatives", force: :cascade do |t|
     t.string   "name"
@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(version: 20160627123518) do
     t.string   "collectible_type"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.integer  "collectible_id"
   end
 
   create_table "requirements", force: :cascade do |t|

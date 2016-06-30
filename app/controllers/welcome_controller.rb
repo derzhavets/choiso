@@ -6,4 +6,8 @@ class WelcomeController < ApplicationController
   
   def home
   end
+  
+  def testing
+    @user = current_user
+  end
 end

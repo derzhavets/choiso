@@ -19,7 +19,6 @@ gem 'devise_invitable', github: 'scambra/devise_invitable'
 gem "twitter-bootstrap-rails"
 gem 'devise-bootstrap-views'
 gem 'simple_form'
-gem 'pry'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks

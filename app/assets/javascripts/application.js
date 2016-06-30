@@ -32,5 +32,5 @@ $(document).ready(function() {
       return text === "Hide" ? "Show" : "Hide";
     });
   });
-  
 });
+

@@ -2,6 +2,7 @@ class Request < ActiveRecord::Base
   belongs_to :sender, class_name: "User"
   belongs_to :receiver, class_name: "User"
   belongs_to :evaluable, polymorphic: true
+  belongs_to :collectible, polymorphic: true
   
   def already_exists?
     Request.exists?(:receiver_id => self.receiver_id, 

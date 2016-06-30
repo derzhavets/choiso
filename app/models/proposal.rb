@@ -25,7 +25,7 @@ class Proposal < ActiveRecord::Base
   
   def title
     if self.proposer.id == User.choiso_account_id
-      @title = "#{self.exampleable_type.capitalize} #{self.showable.singularize} examples by Choiso"
+      @title = "#{self.exampleable_type.capitalize} #{self.showable.singularize.humanize} examples by Choiso"
     else
       @title = "#{self.showable.humanize.capitalize} proposals by #{self.proposer.full_name}"
     end

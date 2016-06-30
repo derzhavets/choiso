@@ -48,7 +48,7 @@
                 <%= link_to "View profile", user_path(user), class: "btn btn-xs btn-primary" %>
                 <% if current_user.not_friends_with?(user.id) %>
                     <%= link_to "Add as my friend", add_friend_path(user: current_user, email: user.email),
-                                                  class: 'btn btn-xs btn-primary', method: :post %>
+                                                  class: 'btn btn-xs btn-primary', method: :post, remote: true %>
                 <% else %>
                   <button class="btn btn-success btn-xs">You are friends</button>
                 <% end %>

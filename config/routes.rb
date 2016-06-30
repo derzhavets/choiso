@@ -2,12 +2,13 @@ Rails.application.routes.draw do
   
   root 'alternatives#index'
   
-  resources :alternatives
+  resources :alternatives, only: [:index, :create, :destroy]
   
   resources :strengths
   resources :weaknesses
   resources :critical_points
   resources :requirements
+  resources :evaluations
 
   devise_for :users, :controllers => { :registrations => "user/registrations", :sessions => "sessions", :invitations => 'invitations'  }
   get 'my_friends', to: 'users#my_friends'
@@ -36,6 +37,7 @@ Rails.application.routes.draw do
   resources :requests, only: [:index, :create]
   
   get 'welcome', to: 'welcome#start'
+  get 'testing', to: 'welcome#testing'
   
   get 'search_friends', to: 'users#search'
   post 'add_friend', to: 'users#add_friend'

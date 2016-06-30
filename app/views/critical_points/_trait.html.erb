@@ -1,5 +1,7 @@
   <%= button_to trait.name, { :controller => :critical_points, :action => :create,
-            :point_id => trait.id, :point_type => trait.class, :proposer_id => current_user.id, 
-            :alternative_id => alternative.id },
-            form_class: "critical-point remove-trait", class: "btn btn-xs btn-primary #{trait.class.to_s.downcase}-style", 
+            :critical_point => {
+              :point_id => trait.id, :point_type => trait.class, 
+              :proposer_id => current_user.id, :alternative_id => alternative.id 
+            }},
+            form_class: "critical-point remove-trait", class: "btn btn-xs #{trait.style}", 
             remote: true %>

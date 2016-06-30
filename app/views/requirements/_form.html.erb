@@ -1,4 +1,4 @@
-<%= simple_form_for(Requirement.new, :remote => true) do |f| %>
+<%= simple_form_for(Requirement.new, :remote => true, :html => {:id => "new_requirement_#{@user.own_alternatives.index(alternative)}"} ) do |f| %>
   <div class="form-inputs">
     <%= f.input :name, wrapper: :vertical_input_group, label: false  do %>
       <%= f.input_field :name, class: "form-control", placeholder: "Type your requirement here" %>

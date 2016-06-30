@@ -73,9 +73,9 @@ en:
       updated: "You updated your account successfully."
     sessions:
       signed_in: "Signed in successfully."
-      signed_out: "Signed out successfully."
+      signed_out: "You have successfully signed out. We will miss you."
       new:
-        sign_in: "Sign in"
+        sign_in: "Sign In na"
     shared:
       links:
         didn_t_receive_confirmation_instructions: "Didn't receive confirmation instructions?"

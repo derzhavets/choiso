@@ -4,7 +4,7 @@
       <div class="panel-title">
         <div class="row">
           <div class="col-xs-10 text-left">
-            Which of <%= display_name_for(@user) %> traits are critical to <%= alternative.name %>?
+            Which of <%= display_name_for(@user) %> traits are critical to <%= alternative.name.downcase %>?
           </div>
           <div class="col-xs-2 text-right">
             <h4><span class="label label-primary"><%= alternative.critical_points_by(@user).count %>/7</span></h4>
@@ -14,7 +14,7 @@
     </div>
     <div class="panel-body">
       <ul class="list-group" id="critical-points-<%= @user.own_alternatives.index(alternative) %>">
-        <%= render partial: "critical_point", collection: alternative.critical_points_by(current_user) %>
+        <%= render partial: "critical_point", collection: alternative.critical_points.proposed_by(current_user) %>
       </ul>
     </div>   
     <div class="panel-body">

@@ -4,6 +4,8 @@ class Alternative < ActiveRecord::Base
   has_many :evaluations, :as => :rateable
   has_many :notifications, :as => :notifiable
   has_many :requests, :as => :evaluable
+  has_many :requests, :as => :collectible
+  
   
   has_many :critical_points, dependent: :destroy
   has_many :requirements, dependent: :destroy

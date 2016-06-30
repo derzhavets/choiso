@@ -18,4 +18,10 @@ class CriticalPoint < ActiveRecord::Base
     
     return @points
   end
+  
+  def already_exists?
+    CriticalPoint.exists?(:alternative_id => self.alternative_id, 
+                  :point_type => self.point_type, :point_id => self.point_id, 
+                  :proposer_id => self.proposer_id, :user_id => self.user_id)
+  end
 end

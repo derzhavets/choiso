@@ -11,8 +11,9 @@ class StrengthsController < ApplicationController
         
         #Create notification
         if @strength.user != current_user
-          Notification.create(recipient: @strength.user, actor: current_user, 
+          @notification = Notification.new(recipient: @strength.user, actor: current_user, 
                               notifiable: @strength, action: "proposed")
+          @notification.save if @notification.relevant?                  
         end
         
         format.js
@@ -27,7 +28,6 @@ class StrengthsController < ApplicationController
   def destroy
     @strength.destroy
     respond_to do |format|
-      format.html { redirect_to alternatives_url, notice: 'Strength was successfully deleted.' }
       format.js
     end
   end
