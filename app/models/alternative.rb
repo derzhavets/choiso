@@ -1,8 +1,8 @@
 class Alternative < ActiveRecord::Base
   belongs_to :user
   belongs_to :proposer, :class_name => "User"
-  has_many :evaluations, :as => :rateable
-  has_many :notifications, :as => :notifiable
+  has_many :evaluations, :as => :rateable, dependent: :destroy
+  has_many :notifications, :as => :notifiable, dependent: :destroy
   has_many :requests, :as => :evaluable
   has_many :requests, :as => :collectible
   

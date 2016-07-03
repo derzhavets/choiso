@@ -11,17 +11,17 @@ class Evaluations
     return
 
   $ ->
-    $('.rating_score').hover ->
+    $(document).on 'mouseenter', ".rating_score", (event) ->
       form_id = $(this).attr('data-form-id')
       value = $(this).attr('data-value')
       set_values form_id, value
       
-    $('.rating_score').mouseout ->
+    $(document).on 'mouseleave', ".rating_score", (event) ->
       $('.evaluation_form').each ->
         form_id = $(this).attr('id')
         set_values form_id, $('#' + form_id + '_score').val()
       
-    $('.rating_score').click ->
+    $(document).on 'click',".rating_score", (event) ->
       score = $(this)
       form_id = score.attr('data-form-id')
       value = score.attr('data-value')

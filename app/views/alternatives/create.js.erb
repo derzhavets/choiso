@@ -2,7 +2,7 @@
   $('#flash-messages').html('<%= flash_messages %>');
   $("#new_alternative")[0].reset();
 <% else %>
-  $('#alternatives-listing').append('<%= j render(@alternative) %>');
+  $('#alternatives-listing').append('<%= j render partial: 'alternative', object: @alternative %>');
   $("#new_alternative")[0].reset();
 <% end %>
 

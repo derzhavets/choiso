@@ -1,17 +1,19 @@
   <li class="list-group-item">
     <div class="row">
-      <div class="col-md-1 col-xs-1">
+      <div class="col-md-8 col-sm-6">
         <%= link_to alternative_path(alternative), method: :delete, id: "destroy_alternative",
                     data: { confirm: 'Are you sure you want to delete this alternative and all its evaluations, critical points and requirements?' },
-                    :remote => true, :class => 'destroy_alternative' do %>
-          <i class="fa fa-times" aria-hidden="true"></i>
+                    :remote => true, :class => 'close-link destroy_alternative' do %>
+          <span class="fa-stack">
+            <i class="fa fa-circle fa-default fa-stack-2x"></i>
+            <i class="fa fa-times fa-stack-1x fa-inverse"></i>
+          </span>
         <% end %>
-      </div>
-      <div class="col-md-5 col-xs-4">
         <%= alternative.name %>
       </div>
-      <div class="col-md-4">
-        <%= render 'evaluations/scale', :alternative => alternative %>
+
+      <div class="col-md-4 col-sm-6 pull-right">
+        <%= render partial: 'evaluations/scale', :locals => { :showable => alternative, :max => 3 } %>
       </div>
     </div>    
   </li>    

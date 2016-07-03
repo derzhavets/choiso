@@ -1,29 +1,19 @@
-  <li class="list-group-item">
-    <div class="row">
-      <div class="col-md-1 col-xs-1">
-        <%= link_to requirement_path(requirement), method: :delete, id: "destroy_requirement",
-                    data: { confirm: 'Are you sure you want to delete this requirement and all its evaluations?' },
-                    :remote => true, :class => 'destroy_requirement' do %>
-          <i class="fa fa-times" aria-hidden="true"></i>
-        <% end %>
-      </div>
-      <div class="col-md-4 col-xs-4">
-        <%= requirement.name %>
-      </div>
-      
-      <div class="col-md-7 col-xs-7">
-        <div class="row vdivide">
-          <% (1..3).each do |i| %>
-            <div class="col-md-1 col-xs-1"><i class="fa fa-star-o" aria-hidden="true"></i></div>
-          <% end %>
-          
-          <div class="col-md-5 pull-right">
-              <%= link_to 'Ask', root_path, class: "btn btn-xs btn-default" %>
-              <%= link_to 'Compare', root_path, class: "btn btn-xs btn-default" %>
-          </div>
-          
-          
-        </div>
-      </div>
-    </div>    
-  </li>    
+<li class="list-group-item">
+  <div class="row">
+    <div class="col-md-8 col-sm-6">
+      <%= link_to requirement_path(requirement), method: :delete, id: "destroy_requirement",
+                  data: { confirm: 'Are you sure you want to delete this requirement and all its evaluations?' },
+                  :remote => true, :class => 'close-link destroy_requirement' do %>
+        <span class="fa-stack">
+          <i class="fa fa-circle fa-default fa-stack-2x"></i>
+          <i class="fa fa-times fa-stack-1x fa-inverse"></i>
+        </span>
+      <% end %>
+      <%= requirement.name %>
+    </div>
+    
+    <div class="col-md-4 col-sm-6 pull-right">
+      <%= render partial: 'evaluations/scale', :locals => { :showable => requirement, :max => 3 } %>
+    </div>
+  </div>    
+</li>    

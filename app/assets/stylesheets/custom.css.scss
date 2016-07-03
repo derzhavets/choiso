@@ -46,3 +46,21 @@ a.btn-default:visited { color: black !important; }
   cursor: pointer; 
   cursor: hand; 
 }
+
+.fa {
+  cursor: pointer; 
+  cursor: hand; 
+}
+
+.fa-stack {
+  color: #e8e8e8;
+  &:hover {
+    color: #d43f3a;
+  }
+}
+
+.close-link {
+  &:hover {
+    text-decoration: none;
+  }
+}  
