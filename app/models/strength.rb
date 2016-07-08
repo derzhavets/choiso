@@ -6,8 +6,6 @@ class Strength < ActiveRecord::Base
   has_many :requests, :as => :evaluable
   has_many :requests, :as => :collectible
   has_many :critical_points, :as => :point, dependent: :destroy
-  
-  #experiment
   has_many :alternatives, :through => :critical_points
   
   def self.except_assigned_for(alternative, strengths)

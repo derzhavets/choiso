@@ -3,25 +3,24 @@
     <div class="panel panel-default">
       <div class="panel-heading clearfix">
         <div class="panel-title pull-left">
-          <%= t('.define') %>
+          <%= t('.define-alternatives') %>
         </div>
       </div>
       <div class="panel-body">
         <%= render 'alternatives/form' %>
         <hr>
           <ul class="list-group" id="alternatives-listing">
-            <%= render @alternatives %> 
+            <%= render partial: 'alternative', collection: current_user.own_alternatives %> 
           </ul>  
       </div>  
     </div>  
   </div>
   <div class="col-md-12">
-    <%= render 'friends/contacts', :showable => "alternatives" %>
+    <%= render partial: 'requests/collectible', object: current_user.alternatives.first %>
   </div>
 </div>
 
 <!-- RIGHT MENU -->
 <% content_for :right_menu do %>
-  <%= render 'common/proposals', :showable => "alternatives" %>
-  <%= render 'friends/inviting' %>
+  <%= render 'shared/proposals', :showable => "alternatives" %>
 <% end %>

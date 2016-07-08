@@ -8,9 +8,8 @@
 </div>
 
 <%= content_for :right_menu do %>
-  <%= render 'common/proposals', :showable => "strengths" %>
+  <%= render 'shared/proposals', :showable => "strengths" %>
   <span id="contacts-listing">
-    <%= render 'friends/contacts', :showable => "strengths" %>
+    <%= render partial: 'requests/collectible', object: current_user.strengths.first %>
   </span>
-  <%= render 'friends/inviting' %>
 <% end %>

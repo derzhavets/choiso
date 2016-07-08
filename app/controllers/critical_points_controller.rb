@@ -19,11 +19,7 @@ class CriticalPointsController < ApplicationController
     @critical_point.save unless @critical_point.already_exists?
     
     #Create notification
-    if @critical_point.user != current_user
-      @notification = Notification.new(recipient: @critical_point.user, actor: current_user, 
-                          notifiable: @critical_point, action: "proposed")
-      @notification.save if @notification.relevant?                  
-    end
+    Notification.generate("proposed", @critical_point) unless @critical_point.user == current_user
     
     respond_to do |format|
       format.js

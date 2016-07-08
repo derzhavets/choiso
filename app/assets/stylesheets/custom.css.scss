@@ -13,7 +13,7 @@ body {
 }
 
 .user-name-link {
-  color: black;
+  color: black !important;
   font-size: 18px;
 }
 
@@ -34,22 +34,13 @@ a.btn-default:visited { color: black !important; }
 
 .label-default {
     background-color: #e8e8e8;
-}
-
-.label-success {
-  background-color: #5cb85c !important;
-  cursor: pointer; 
-  cursor: hand; 
-}
-
-.label { 
-  cursor: pointer; 
-  cursor: hand; 
+    cursor: pointer !important; 
+    cursor: hand !important; 
 }
 
 .fa {
-  cursor: pointer; 
-  cursor: hand; 
+  cursor: pointer !important; 
+  cursor: hand !important; 
 }
 
 .fa-stack {
@@ -63,4 +54,29 @@ a.btn-default:visited { color: black !important; }
   &:hover {
     text-decoration: none;
   }
-}  
+} 
+
+.label {
+  cursor: pointer;
+  cursor: hand; 
+}
+
+.label-strength {
+    background-color: #5cb85c !important;
+}
+
+.label-weakness {
+    background-color: #d9534f !important;
+}
+
+.label-alternative {
+    background-color: #428bca !important;
+}
+
+.label-critical-point {
+    background-color: #8258FA !important;
+}
+
+.label-requirement {
+    background-color: #FF8000 !important;
+}

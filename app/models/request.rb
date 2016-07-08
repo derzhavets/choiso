@@ -7,6 +7,11 @@ class Request < ActiveRecord::Base
   def already_exists?
     Request.exists?(:receiver_id => self.receiver_id, 
                     :sender_id => self.sender_id, :evaluable_id => self.evaluable_id, 
-                    :collectible_type => self.collectible_type)
+                    :collectible_id => self.collectible_id)
+  end
+  
+  def send_to(friend_id)
+    self.receiver = User.find(friend_id)
+    self.save unless self.already_exists?
   end
 end

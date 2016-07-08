@@ -1,11 +1,11 @@
 <%= simple_form_for(Alternative.new, :remote => true) do |f| %>
   <div class="form-inputs">
     <%= f.input :name, wrapper: :vertical_input_group, label: false  do %>
-      <%= f.input_field :name, class: "form-control", placeholder: "Type your alternative here" %>
+      <%= f.input_field :name, class: "form-control", placeholder: t('.type-alternative') %>
+      <%= f.hidden_field :user_id, :value => @user.id %>
+      <%= f.hidden_field :proposer_id, :value => current_user.id %>
       <span class="input-group-btn">
         <%= f.button :submit, 'Add', class: "btn btn-primary" %>
-        <%= f.hidden_field_tag 'user_id', @user.id %>
-        <%= link_to 'Show proposals', root_path, class: "btn btn-success" %>
       </span>
     <% end %>
   </div>

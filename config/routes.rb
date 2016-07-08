@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :critical_points
   resources :requirements
   resources :evaluations
+  resources :critical_evaluations
 
   devise_for :users, :controllers => { :registrations => "user/registrations", :sessions => "sessions", :invitations => 'invitations'  }
   get 'my_friends', to: 'users#my_friends'

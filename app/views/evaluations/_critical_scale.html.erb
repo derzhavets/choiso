@@ -1,10 +1,9 @@
-<% form_id = "#{showable.class.to_s.downcase}_#{showable.id}_evaluation" %>
-<%= form_for showable.evaluations.proposed_by(@user).last || showable.evaluations.build, 
-                          :data => { :scale => scale, :label_class => "label-#{showable.class.to_s.underscore.dasherize.downcase}" }, 
-                          :html => {:id => form_id, :class => "evaluation_form"} do |f| %>
-  <%= f.hidden_field :rateable_id, :value => showable.id %>
+<% form_id = "alternative_#{alternative.id}_evaluation" %>
+<%= form_for alternative.critical_evaluations.last || alternative.critical_evaluations.build, 
+                            :data => { :scale => scale, :label_class => "label-alternative" }, 
+                            :html => {:id => form_id, :class => "evaluation_form"} do |f| %>
+  <%= f.hidden_field :alternative_id, :value => alternative.id %>
   <%= f.hidden_field :score, :id => form_id + "_score" %>
-  <%= f.hidden_field_tag 'showable', showable.class %>
 <% end %>
 
 <div class="pull-right">

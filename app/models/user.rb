@@ -55,17 +55,9 @@ class User < ActiveRecord::Base
   
   def proposers_of(showable)
     proposals = send("#{showable}".to_sym).where("user_id = ? AND proposer_id != ?", self.id, self.id)
-    proposers = Array.new
-    
-    proposals.each do |proposal|
-      if proposal.proposer != nil
-        proposers << User.find(proposal.proposer.id) if !proposers.include?(proposal.proposer)
-      end  
-    end
-    return proposers
+    proposers = proposals.map { |trait| trait.proposer if trait.proposer }
+    return proposers.uniq
   end
-  
-
   
   def alternatives_proposed_for(user)
     user.alternatives.where(proposer: self)
@@ -114,6 +106,10 @@ class User < ActiveRecord::Base
 
   def self.matches(field_name, param)
     where("lower(#{field_name}) like ?", "%#{param}%")
+  end
+  
+  def asked_alternatives_from(user)
+    Request.where(sender: self, receiver: user, collectible_type: "Alternative").any?
   end
   
 end

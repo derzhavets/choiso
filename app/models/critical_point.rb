@@ -10,19 +10,16 @@ class CriticalPoint < ActiveRecord::Base
   end
   
   def self.points_of_type(traits)
-    @critical_points = self.where(point_type: traits.singularize.capitalize)
-    @points = Array.new
-    
-    @critical_points.each do |cp|
-      @points << cp.point
-    end
-    
-    return @points
+    self.where(point_type: traits.singularize.capitalize).map { |cp| cp.point }
   end
   
   def already_exists?
     CriticalPoint.exists?(:alternative_id => self.alternative_id, 
                   :point_type => self.point_type, :point_id => self.point_id, 
                   :proposer_id => self.proposer_id, :user_id => self.user_id)
+  end
+
+  def alternative_index
+    self.user.own_alternatives.index(self.alternative)
   end
 end

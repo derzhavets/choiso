@@ -12,8 +12,8 @@
       <%= critical_point.point.name %>
     </div>
     
-    <div class="col-md-4 col-sm-6 pull-right">
-      <%= render partial: 'evaluations/scale', :locals => { :showable => critical_point, :max => 3 } %>
-    </div>
+      <div class="col-md-4 col-sm-6 pull-right">
+        <%= render partial: 'evaluations/scale', object: 4, :locals => { :showable => critical_point } %>
+      </div>
   </div>    
 </li>    

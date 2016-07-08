@@ -75,7 +75,7 @@ en:
       signed_in: "Signed in successfully."
       signed_out: "You have successfully signed out. We will miss you."
       new:
-        sign_in: "Sign In na"
+        sign_in: "Sign In"
     shared:
       links:
         didn_t_receive_confirmation_instructions: "Didn't receive confirmation instructions?"

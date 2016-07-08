@@ -15,7 +15,8 @@
             <%= f.hidden_field_tag 'user_id', "#{@user.id}" %>
             <%= link_to 'Show proposals', '#', class: "btn btn-success", 
                                         :data => { behavior: "proposal-link", 
-                                        url: link_to_change_proposal(showable) } %>
+                                        url: link_to_change_proposal(showable) },
+                                        remote: true %>
           </span>
         <% end %>
       </div>

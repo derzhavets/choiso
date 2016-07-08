@@ -10,6 +10,7 @@ class SessionsController < Devise::SessionsController
     
     # Set default proposals
     user_session.set_proposer(User.choiso_account_id)
+    user_session.set_exampleable("basic")
   end
   
 end

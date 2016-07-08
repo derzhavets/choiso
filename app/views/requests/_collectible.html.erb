@@ -13,7 +13,14 @@
                 <tr>
                   <td><%= check_box_tag 'friend_ids[]', friend.id %></td>
                   <td><%= link_to friend.full_name, user_path(friend), class: "user-name-link" %></td>
-                      <%= f.hidden_field :collectible_id, :value => user_session.showable %>
+                  <td>
+                    <% if current_user.asked_alternatives_from(friend) %>
+                      <span class="label label-success">Request sent</span>
+                    <% end %>
+                  </td>
+                      <%= f.hidden_field :collectible_id, :value => collectible.id %>
+                      <%= f.hidden_field :collectible_type, :value => user_session.showable.singularize.capitalize %>
+                      <%= f.hidden_field :sender_id, :value => current_user.id %>
                 </tr>
               <% end %>
             </tbody>

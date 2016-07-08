@@ -11,7 +11,7 @@
     <hr>  
       
     <ul class="list-group" id="requirements-listing-<%= @user.own_alternatives.index(alternative) %>">
-      <%= render alternative.requirements_by(@user) %>
+      <%= render alternative.requirements_by(current_user) %>
     </ul>  
     </div>
   </div>

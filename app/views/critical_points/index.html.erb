@@ -4,15 +4,29 @@
       <div class="panel-title">
         <div class="row">
           <div class="col-xs-10 text-left">
-            Which of <%= display_name_for(@user) %> traits are critical to <%= alternative.name.downcase %>?
+            Which of <%= display_name_for(@user) %> traits are critical to <%= alternative.name.downcase %>? How big their impact?
           </div>
-          <div class="col-xs-2 text-right">
-            <h4><span class="label label-primary"><%= alternative.critical_points_by(@user).count %>/7</span></h4>
+          <div class="col-xs-2 text-right" id="counter-<%= @user.own_alternatives.index(alternative) %>">
+            <%= render partial: 'critical_points/counter', locals: { alternative: alternative, user: current_user } %>
           </div>
         </div>  
       </div>
     </div>
     <div class="panel-body">
+      <% if ( alternative.critical_points_by(@user).count >= 7 ) && ( @user == current_user )%>
+        <ul class="list-group">
+        <li class="list-group-item">
+          <div class="row">
+            <div class="col-md-8 col-sm-8">
+              Evaluate alternative regarding stated critical points
+            </div>
+            <div class="col-md-4 col-sm-4">
+              <%= render partial: 'evaluations/critical_scale', locals: { :alternative => alternative, :scale => 4 } %>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <% end %>
       <ul class="list-group" id="critical-points-<%= @user.own_alternatives.index(alternative) %>">
         <%= render partial: "critical_point", collection: alternative.critical_points.proposed_by(current_user) %>
       </ul>

@@ -1,6 +1,6 @@
   <li class="list-group-item">
     <div class="row">
-      <div class="col-md-8 col-sm-6">
+      <div class="col-md-12 col-sm-12">
         <%= link_to alternative_path(alternative), method: :delete, id: "destroy_alternative",
                     data: { confirm: 'Are you sure you want to delete this alternative and all its evaluations, critical points and requirements?' },
                     :remote => true, :class => 'close-link destroy_alternative' do %>
@@ -12,8 +12,8 @@
         <%= alternative.name %>
       </div>
 
-      <div class="col-md-4 col-sm-6 pull-right">
-        <%= render partial: 'evaluations/scale', :locals => { :showable => alternative, :max => 3 } %>
+      <div class="col-md-12 col-sm-12 pull-left">
+        <%= render partial: 'evaluations/scale', object: 10, :locals => { :showable => alternative } if @user == current_user %>
       </div>
     </div>    
   </li>    

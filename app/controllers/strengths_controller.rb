@@ -10,11 +10,7 @@ class StrengthsController < ApplicationController
       if @strength.save
         
         #Create notification
-        if @strength.user != current_user
-          @notification = Notification.new(recipient: @strength.user, actor: current_user, 
-                              notifiable: @strength, action: "proposed")
-          @notification.save if @notification.relevant?                  
-        end
+        Notification.generate("proposed", @strength) unless @strength.user == current_user
         
         format.js
         format.html { render alternatives_path }

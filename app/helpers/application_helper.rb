@@ -19,5 +19,15 @@ module ApplicationHelper
             end)
     end
     nil
-  end  
+  end
+  
+  def display_name_for(user)
+    if user == current_user
+      "your"
+    else
+      "#{user.first_name}'s"
+    end
+  end
+  
+  
 end

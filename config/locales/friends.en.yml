@@ -1,0 +1,5 @@
+en:
+  friends:
+    contacts:
+      ask-to-propose: "Ask your friends to propose you"
+      resource-name: "%{resource}"

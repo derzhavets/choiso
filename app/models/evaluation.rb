@@ -5,4 +5,8 @@ class Evaluation < ActiveRecord::Base
   def self.own
     where(rater_id: self.last.rateable.user.id)
   end
+  
+  def self.proposed_by(user)
+    where(rater: user)
+  end
 end

@@ -1,15 +1,17 @@
 class Evaluations
 
   set_values = (form_id, value) ->
+    max = $('#' + form_id).data('scale')
+    label_class = $('#' + form_id).data('label-class')
     i = 1
-    while i <= 3
+    while i <= max
       if i <= value
-        $('#' + form_id + '_' + i).addClass 'label-success'
+        $('#' + form_id + '_' + i).addClass label_class
       else
-        $('#' + form_id + '_' + i).removeClass 'label-success'
+        $('#' + form_id + '_' + i).removeClass label_class
       i++
     return
-
+  
   $ ->
     $(document).on 'mouseenter', ".rating_score", (event) ->
       form_id = $(this).attr('data-form-id')
@@ -21,7 +23,7 @@ class Evaluations
         form_id = $(this).attr('id')
         set_values form_id, $('#' + form_id + '_score').val()
       
-    $(document).on 'click',".rating_score", (event) ->
+    $(document).on 'click', ".rating_score", (event) ->
       score = $(this)
       form_id = score.attr('data-form-id')
       value = score.attr('data-value')
@@ -35,7 +37,6 @@ class Evaluations
     $('.evaluation_form').each ->
       form_id = $(this).attr('id')
       set_values form_id, $('#' + form_id + '_score').val()
-
 
 jQuery ->
   new Evaluations
