@@ -6,10 +6,5 @@ class ProposalsController < ApplicationController
     
     @proposal = Proposal.new(proposer: user_session.proposer, user: current_user, 
                              showable: user_session.showable, exampleable_type: user_session.exampleable)
-    
-    respond_to do |format|
-      format.js
-      format.json
-    end
   end
 end

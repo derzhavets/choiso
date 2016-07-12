@@ -5,10 +5,6 @@ class Proposals
     @setup() if @proposals.length > 0
 
   setup: ->
-    $(document).on 'click', "[data-behavior='toggle-proposals']", (event) =>
-      $('#proposals-body').slideToggle 'fast'
-      $('#toggle-proposals-label').html("Do" ? "Not" : "Do")
-    
     $(document).on 'click', "[data-behavior='proposal-link']", (event) => (
       event.preventDefault()
       link = $(event.target).data("url")
@@ -31,6 +27,10 @@ class Proposals
     $("[data-behavior='proposals-dropdown']").html(data.dropdown)
     $("[data-behavior='proposal-title']").html(data.title)
     $("[data-behavior='proposal-list']").html(data.proposals)
+    $.ajax(
+      url: "/requests"
+      method: "GET"
+    )
   );
   
 jQuery ->

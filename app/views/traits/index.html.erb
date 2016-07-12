@@ -1,0 +1,11 @@
+<div class="row">
+  <% @resources.each do |resource| %>
+    <%= render partial: 'traits/block', locals: { :resource => resource } %>
+  <% end %>
+</div>
+
+
+<% content_for :right_menu do %>
+  <%= render 'shared/proposals' %>
+  <div class="panel panel-default" id="collectible"></div>    
+<% end %>

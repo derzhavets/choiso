@@ -1,4 +1,5 @@
 class RequirementsController < ApplicationController
+  before_filter :require_alternatives
   before_action :set_requirement, only: [:show, :edit, :update, :destroy]
   
   def index
@@ -56,4 +57,11 @@ class RequirementsController < ApplicationController
     params.require(:requirement).permit(:name, :proposer_id, :user_id)
   end
   
+  # User can only start working here if he has alternatives defined
+  def require_alternatives
+    unless current_user.own_alternatives.count > 0
+      flash[:danger] = "Please define at least one alternative to start working with Requirements"
+      redirect_to alternatives_path
+    end
+  end
 end

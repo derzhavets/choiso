@@ -8,6 +8,6 @@ module ProposalsHelper
   end
   
   def link_to_change_proposal(showable)
-    "/show_proposals?showable=#{showable}"
+    "/show_proposals?showable=#{showable.downcase.pluralize}"
   end
 end

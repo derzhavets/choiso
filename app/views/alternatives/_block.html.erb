@@ -1,0 +1,16 @@
+<div class="col-md-12">
+  <div class="panel panel-default">
+    <div class="panel-heading clearfix">
+      <div class="panel-title pull-left">
+        <%= t('.define-alternatives') %>
+      </div>
+    </div>
+    <div class="panel-body">
+      <%= render 'alternatives/form' %>
+      <hr>
+      <ul class="list-group" id="alternatives-listing">
+          <%= render partial: 'alternatives/alternative', collection: @user.alternatives.proposed_by(current_user) %> 
+        </ul>  
+    </div>  
+  </div>  
+</div>

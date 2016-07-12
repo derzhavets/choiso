@@ -1,0 +1,16 @@
+<div class="col-md-12">
+  <div class="panel panel-default">
+    <div class="panel-heading clearfix">
+      <div class="panel-title pull-left">
+        Define and evaluate <%= display_name_for(@user) %> <%= resource.pluralize %>
+      </div>
+    </div>
+    <div class="panel-body">
+      <%= render partial: 'traits/form', locals: { :resource => resource } %>
+      <hr>
+      <ul class="list-group" id="<%= resource.downcase.pluralize %>-listing">
+        <%= render partial: 'traits/trait', collection: @user.send("#{resource.downcase.pluralize}".to_sym).proposed_by(current_user) %>
+      </ul> 
+    </div>
+  </div>
+</div>  

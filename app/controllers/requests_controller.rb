@@ -2,6 +2,9 @@ class RequestsController < ApplicationController
   before_action :authenticate_user!
     
     def index
+      respond_to do |format|
+        format.js
+      end
     end
     
     
@@ -19,10 +22,11 @@ class RequestsController < ApplicationController
       end      
     end
   
+  
   private
   
   def request_params
-  params.require(:request).permit(:sender_id, :collectible_id, :collectible_type, :evaluable_id, :evaluable_type)
+    params.require(:request).permit(:sender_id, :collectible_id, :collectible_type, :evaluable_id, :evaluable_type)
   end
     
 end

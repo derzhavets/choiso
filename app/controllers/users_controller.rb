@@ -32,10 +32,7 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
-    @alternatives = current_user.alternatives_proposed_for(@user)
-    @strengths = current_user.strengths_proposed_for(@user)
-    @weaknesses = current_user.weaknesses_proposed_for(@user)
-    @requestable = current_user.requests_from(@user)
+    @resources = ["Alternative", "Strength", "Weakness"]    
   end
   
 end

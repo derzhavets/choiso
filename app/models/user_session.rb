@@ -29,4 +29,8 @@ class UserSession
   def exampleable
     @session[:exampleable_type]
   end
+  
+  def collectible
+    @session[:showable].singularize.capitalize.constantize.first
+  end
 end

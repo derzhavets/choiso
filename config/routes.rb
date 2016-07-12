@@ -3,9 +3,9 @@ Rails.application.routes.draw do
   root 'alternatives#index'
   
   resources :alternatives, only: [:index, :create, :destroy]
+  resources :traits
+  resources :analyze
   
-  resources :strengths
-  resources :weaknesses
   resources :critical_points
   resources :requirements
   resources :evaluations
@@ -38,7 +38,6 @@ Rails.application.routes.draw do
   resources :requests, only: [:index, :create]
   
   get 'welcome', to: 'welcome#start'
-  get 'testing', to: 'welcome#testing'
   
   get 'search_friends', to: 'users#search'
   post 'add_friend', to: 'users#add_friend'
@@ -46,13 +45,9 @@ Rails.application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
   
-  get 'mirror', to: 'mirror#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
-
-  post 'add_proposal', to: 'alternatives#add_proposal'
-  get 'show_examples', to: 'alternatives#show_examples'
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   # get 'products/:id/purchase' => 'catalog#purchase', as: :purchase

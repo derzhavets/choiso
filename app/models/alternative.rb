@@ -14,10 +14,7 @@ class Alternative < ActiveRecord::Base
   validates_presence_of :name
   validates :name, length: { minimum: 5, maximum: 60 }
   
-    
-  def self.critical_points_by(user)
-    critical_points.where(proposer: user)
-  end
+
   
   def traits_unassigned_by(trait, user)
     alternaitve.critical_points.reject { |point| point.trait == trait  }
@@ -34,5 +31,13 @@ class Alternative < ActiveRecord::Base
   def generate_rank
     self.rank = self.user.own_alternatives.index(self) + 1
     self.save
+  end
+      
+  def self.critical_points_by(user)
+    critical_points.where(proposer: user)
+  end
+  
+  def object
+    self
   end
 end

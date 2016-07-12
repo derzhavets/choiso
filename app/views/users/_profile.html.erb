@@ -10,7 +10,7 @@
       <div class="text-center">
         <% if current_user.not_friends_with?(@user.id) %>
           <%= link_to "Add as my friend", add_friend_path(user: current_user, friend: @user),
-                                                      class: 'btn btn-primary', method: :post %>
+                                                      class: 'btn btn-primary', method: :post, remote: true %>
         <% else %>
           <span class="label label-success">You are friends</span>
         <% end %>

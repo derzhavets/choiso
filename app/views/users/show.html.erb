@@ -1,29 +1,9 @@
 <div class="row">
-  <% if @user.asked_alternatives_from(current_user) %>
-    <div class="col-md-12">
-      <div class="panel panel-default">
-        <div class="panel-heading clearfix">
-          <div class="panel-title pull-left" style="padding-top:6px;">
-            Propose alternatives for <%= @user.first_name %>
-          </div>
-        </div>
-        <div class="panel-body" id="alternatives-body">
-          <%= render 'alternatives/form' %>
-          <hr>
-          <ul class="list-group" id="alternatives-listing">
-            <%= render @alternatives %> 
-          </ul>  
-        </div>  
-      </div>  
-    </div>
-  <% end %>
-  
-  <div class="col-md-12">
-    <%= render 'mirror/list', :showable => "strengths" %>
-  </div>
-  <div class="col-md-12">
-    <%= render 'mirror/list', :showable => "weaknesses" %>
-  </div>
+  <% @resources.each do |resource| %>
+    <% if @user.asked_collectible_from(current_user, resource) %>
+      <%= render partial: "#{folder_name_for(resource)}/block", locals: { :resource => resource } %>
+    <% end %>
+  <% end %>  
 </div>
 
 <% content_for :right_menu do %>

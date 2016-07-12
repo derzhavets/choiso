@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
   # Critical points
   
   def not_assigned_to(alternative, traits, proposer)
-    self.send("own_#{traits}".to_sym).reject { |trait| alternative.critical_points_by(proposer).points_of_type(traits).include?(trait) }
+    self.send("own_#{traits}".to_sym).reject { |trait| alternative.critical_points.proposed_by(proposer).points_of_type(traits).include?(trait) }
   end
   
   def own_weaknesses
@@ -108,8 +108,12 @@ class User < ActiveRecord::Base
     where("lower(#{field_name}) like ?", "%#{param}%")
   end
   
-  def asked_alternatives_from(user)
-    Request.where(sender: self, receiver: user, collectible_type: "Alternative").any?
+  def asked_collectible_from(user, collectible)
+    Request.where(sender: self, receiver: user, collectible_type: collectible).any?
+  end
+  
+  def traits_count
+    self.strengths.count + self.weaknesses.count
   end
   
 end

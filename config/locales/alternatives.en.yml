@@ -1,6 +1,6 @@
 en:
   alternatives:
-    index: 
+    block: 
       define-alternatives: "State your alternatives and mark how much you want it"
     form:
       type-alternative: "Type your alternative here"

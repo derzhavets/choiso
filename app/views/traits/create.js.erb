@@ -1,0 +1,7 @@
+<% if @trait.errors.any? %>
+  $('#flash-messages').html('<%= flash_messages %>');
+  $("#new_<%= @trait.resource_name.downcase %>")[0].reset();
+<% else %>
+  $("#<%= @trait.resource_name.downcase.pluralize %>-listing").append('<%= j render partial: 'traits/trait', object: @trait.object %>');
+  $("#new_<%= @trait.resource_name.downcase %>")[0].reset();
+<% end %>

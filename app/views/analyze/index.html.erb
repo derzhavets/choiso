@@ -1,0 +1,21 @@
+<h1><%= current_user.full_name %></h1>
+
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Rank</th>
+        <th>Desire</th>
+      </tr>
+    </thead>
+      <tbody>
+        <% current_user.own_alternatives.each do |alternative| %>
+          <tr>
+            <td><%= alternative.name %></td>
+            <td><%= alternative.rank %></td>
+            <td><%= alternative.evaluations.last.score || "Not evaluated" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+  </table>

@@ -1,4 +1,6 @@
 class CriticalPointsController < ApplicationController
+  before_filter :require_alternatives_and_mirror
+  
   def index
     if params[:proposer_id]
       @user = User.find(params[:proposer_id])
@@ -42,5 +44,15 @@ class CriticalPointsController < ApplicationController
   
   def critical_point_params
     params.require(:critical_point).permit(:alternative_id, :point_type, :point_id, :proposer_id)
+  end
+  
+  def require_alternatives_and_mirror
+    if current_user.own_alternatives.count == 0
+      flash[:danger] = "Please state at least one alternative to start working with Critical points"
+      redirect_to alternatives_path
+    elsif current_user.traits_count == 0
+      flash[:danger] = "Please state at least couple of traits to start working with Critical points"
+      redirect_to traits_path
+    end
   end
 end

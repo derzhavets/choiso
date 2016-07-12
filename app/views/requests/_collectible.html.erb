@@ -1,38 +1,35 @@
-<div class="panel panel-default">
-  <div class="panel-heading clearfix">
-    <div class="panel-title pull-left" style="padding-top:6px;">
-      Ask your friends to propose you <span id="request-topic"><%= user_session.showable %></span>
-    </div>
-  </div>  
-  <div class="panel-body">
-    <% if current_user.friends_except_pending.count > 0 %>
+<div class="panel-heading clearfix">
+  <div class="panel-title pull-left" style="padding-top:6px;">
+    Ask your friends to propose you <span id="request-topic"><%= user_session.showable %></span>
+  </div>
+</div>  
+<div class="panel-body">
+  <% if current_user.friends_except_pending.count > 0 %>
+    <%= form_for Request.new, remote: true do |f| %>
+      <%= f.hidden_field :collectible_id, :value => collectible.id %>
+      <%= f.hidden_field :collectible_type, :value => collectible.class %>
+      <%= f.hidden_field :sender_id, :value => current_user.id %>
       <table class="table table-striped">
         <tbody>
-            <%= form_for Request.new, remote: true do |f| %>
-              <% current_user.friends_except_pending.each do |friend| %>
-                <tr>
-                  <td><%= check_box_tag 'friend_ids[]', friend.id %></td>
-                  <td><%= link_to friend.full_name, user_path(friend), class: "user-name-link" %></td>
-                  <td>
-                    <% if current_user.asked_alternatives_from(friend) %>
-                      <span class="label label-success">Request sent</span>
-                    <% end %>
-                  </td>
-                      <%= f.hidden_field :collectible_id, :value => collectible.id %>
-                      <%= f.hidden_field :collectible_type, :value => user_session.showable.singularize.capitalize %>
-                      <%= f.hidden_field :sender_id, :value => current_user.id %>
-                </tr>
-              <% end %>
-            </tbody>
+          <% current_user.friends_except_pending.each do |friend| %>
+            <tr>
+              <td><%= check_box_tag 'friend_ids[]', friend.id %></td>
+              <td><%= link_to friend.full_name, user_path(friend), class: "user-name-link" %>
+                <% if current_user.asked_collectible_from(friend, collectible.class) %>
+                  <span class="label label-success">Request sent</span>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
       </table>  
       <%= f.submit 'Send request', class: "btn btn-primary" %>
-      <% end %>
-    <% else %>
-      <h4 class="text-center">You haven't added any friends yet. Search friends among Choiso users or invite new.</h4>
-      <br />
-      <div class="text-center">
-        <%= link_to 'Add friends', my_friends_path, class: "btn btn-success" %>
-      </div>
     <% end %>
-  </div>
+  <% else %>
+    <h4 class="text-center">You haven't added any friends yet. Search friends among Choiso users or invite new.</h4>
+    <br />
+    <div class="text-center">
+      <%= link_to 'Add friends', my_friends_path, class: "btn btn-success" %>
+    </div>
+  <% end %>
 </div>

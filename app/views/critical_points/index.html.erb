@@ -13,7 +13,7 @@
       </div>
     </div>
     <div class="panel-body">
-      <% if ( alternative.critical_points_by(@user).count >= 7 ) && ( @user == current_user )%>
+      <% if ( alternative.critical_points.proposed_by(@user).count >= 7 ) && ( @user == current_user )%>
         <ul class="list-group">
         <li class="list-group-item">
           <div class="row">
@@ -60,6 +60,6 @@
   <% end %>
 <% else %>
     <% content_for :right_menu do %>
-      <%= render 'common/proposals' %>
+      <%= render 'shared/proposals' %>
     <% end %>
 <% end %>

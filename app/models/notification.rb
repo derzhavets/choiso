@@ -9,7 +9,8 @@ class Notification < ActiveRecord::Base
   def self.generate(action, object)
     if action == "proposed"  
       @notification = Notification.new(recipient: object.user, actor: object.proposer, 
-                      notifiable: object, action: action)
+                      notifiable: object.object, action: action)
+      
       @notification.save if @notification.relevant?    
     elsif action == "asked"
       @notification = Notification.new(recipient: object.receiver, actor: object.sender, action: action)
