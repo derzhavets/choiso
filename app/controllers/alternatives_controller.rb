@@ -17,7 +17,7 @@ class AlternativesController < ApplicationController
         
         #Create notification
         Notification.generate("proposed", @alternative) if @alternative.user != current_user
-
+        
         format.js
       else
         format.js { flash.now[:danger] = @alternative.errors.full_messages.first }

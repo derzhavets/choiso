@@ -14,10 +14,10 @@ class Alternative < ActiveRecord::Base
   validates_presence_of :name
   validates :name, length: { minimum: 5, maximum: 60 }
   
-
-  
+  # Test method
+    
   def traits_unassigned_by(trait, user)
-    alternaitve.critical_points.reject { |point| point.trait == trait  }
+    alternaitve.critical_points.reject { |point| point.trait == trait }
   end
   
   def requirements_by(user)

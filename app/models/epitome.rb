@@ -102,13 +102,14 @@ module Epitome
 		return wished
 	end
 	
-	def self.test_critical_points(user)
+	def Epitome.critical_array(user)
 		critical_array = []
 		
 		user.own_alternatives.each do |alternative|
 			critical_array.push([
 				alternative.name, 
-				alternative.critical_points.proposed_by(user).map { |cp| [cp.point.name, cp.evaluations.last.score] }
+				alternative.critical_points.proposed_by(user).map { |cp| [cp.point.name, cp.evaluations.last.score] },
+				[ "overall", alternative.critical_evaluations.proposed_by(user).last.score ]
 			])
 		end
 		
@@ -126,14 +127,7 @@ module Epitome
 		
 		critical_points_results = []
 		
-		critical_array = []
-		
-		user.own_alternatives.each do |alternative|
-			critical_array.push([
-				alternative.name, 
-				alternative.critical_points.proposed_by(user).map { |cp| [cp.point.name, cp.evaluations.last.score] }
-			])
-		end	
+		critical_array = Epitome.critical_array(user)
 		
 		critical_array.each do |this_alternative|
 			inner_alternative = this_alternative[1]
@@ -144,8 +138,8 @@ module Epitome
 			zeros = 0
 
 			inner_alternative.each do |inside|
-				this_mark = inside[1][2]
-				puts "this mark = ", this_mark
+				this_mark = inside[1]
+				## puts "this_mark is ", this_mark
 				zeros += 1
 				if this_mark > 2
 					zeros -= 1
@@ -174,10 +168,10 @@ module Epitome
 			if (plusses == 2 && minuses == 0)
 				critical_mark = 2
 			end	
-			puts "plusses = ", plusses
-			puts "minuses = ", minuses
+			## puts "plusses = ", plusses
+			## puts "minuses = ", minuses
 			critical_result = [this_alternative[0], critical_mark]
-			puts critical_result
+			## puts critical_result
 			critical_points_results.push(critical_result)
 	
 			
@@ -186,28 +180,8 @@ module Epitome
 	
 	end
 	
-	def combine_wishes(x,y)
-	## x come from wishes, y from critical points
-	## it is just a subroutine, which is not called from the outside of this modul
-		if x == 3 && y == 3
-			return 3
-		end
-		if x == 3 && y == 2
-			return 3
-		end
-		if x == 3 && y == 1
-			return 2
-		end
-		if x == 2 && y == 3
-			return 2
-		end
-		if x == 2 && y == 2
-			return 2
-		end
-		return 1
-	end
 	
-	def Epitome.combines_wishes(wisheds, criticals)
+	def Epitome.combined_wishes(wisheds, criticals)
 	## This combines critical points with wishes, telling how desirable the 
 	## alternative really is for the user, all things considering
 	## the input is the output from Epitome.wishes and Epitome.critical_points
@@ -217,10 +191,29 @@ module Epitome
 		combined_wishes = []
 		criticals.each do |line|
 			critical_mark = line[1]
-			wisheds.each do |wishline|
-				if wishline[0] == line[0]
-					wished_mark = wishline[1]
-					combined_mark = combine_wishes(wished_mark, critical_mark)
+			langd = wisheds.length
+			langden = langd - 1
+			(0..langden).each do |i|
+				if wisheds[i][0] == line[0]
+					wished_mark = wisheds[i][1]
+					x = wished_mark
+					y = critical_mark
+					combined_mark = 1
+					if x == 3 && y == 3
+			        combined_mark =	3
+		      end
+		      if x == 3 && y == 2
+			        combined_mark = 3
+		      end
+		      if x == 3 && y == 1
+			        combined_mark = 2
+		      end
+		      if x == 2 && y == 3
+			        combined_mark = 2
+		      end
+		      if x == 2 && y == 2
+			        combined_mark = 2
+		      end
 					combined_wishes.push([line[0], combined_mark])
 				end
 			end
@@ -228,10 +221,23 @@ module Epitome
 		return combined_wishes
 	end
 	
-	## so far, the wishes. Now look at the difficulties
+	## so far, the wishes. Now look at the requirements
 	## the procedure is quite like in the desirability round above
 	
-	def Epitome.difficulties(problem_array)
+	def Epitome.requirements_array(user)
+		requirements_array = []
+		
+		user.own_alternatives.each do |alternative|
+			requirements_array.push([
+				alternative.name, 
+				alternative.requirements.proposed_by(user).map { |reqs| [reqs.name, reqs.evaluations.last.score] }
+			])
+		end
+		
+		return requirements_array
+	end
+	
+	def Epitome.requirement_points(user)
 		## the user have enumerated the requirements per altrernative
 		## and noted how well she thinks she can live up to them
 		## input: representation is an array, first element is the
@@ -241,19 +247,21 @@ module Epitome
 		## nevertheless, I use the coding 1 to 3 in the program
 		## the output is an array, with elements like ["teacher", 2]
 		
+		requirements_results = []
 		
-		difficulties_results = []
-		langd = problem_array.length
+		requirements_array = Epitome.requirements_array(user)
 		
-		problem_array.each do |this_alternative|
-	
+		requirements_array.each do |this_alternative|
+			inner_alternative = this_alternative[1]
 			## First, we count +es (3), -es (1) and +-es (2)
 			## this_mark can be nil; then it counts as +- (ie default, neutral)
 			plusses = 0
 			minuses = 0
 			zeros = 0
-			(1..langd).each do |i|
-				this_mark = this_alternative[i][1]
+
+			inner_alternative.each do |inside|
+				this_mark = inside[1]
+				## puts "this_mark is ", this_mark
 				zeros += 1
 				if this_mark > 2
 					zeros -= 1
@@ -264,13 +272,13 @@ module Epitome
 					minuses += 1
 				end
 			end
-	
+			
 			## Now we have the numbers of +es etc.
 			## we can begin to find out how difficult it is
 			## 3 good, 2 bad, 1 awful
 
-			d_result = []
-			difficulties_result = []
+			r_result = []
+			requirements_result = []
 			d_mark = 2
 			if (minuses >= 1)
 				d_mark = 1
@@ -282,33 +290,35 @@ module Epitome
 			if (minuses == 0 && zeros == 0)
 				d_mark = 3
 			end
-			d_result = [this_alternative[0], d_mark]
-			difficulties_results.push(d_result)
+			r_result = [this_alternative[0], d_mark]
+			requirements_results.push(r_result)
 		end
-		return difficulties_results
+		return requirements_results
 	end
 	
 	## Now for another critical points epitome, this time thinking of difficulties
 	## As far as I know, it uses the same marking of critical points as the revious
 	
-	def Epitome.critical_difficulties(critical_array)
+	def Epitome.critical_requirements(user)
 	## this time, starting from the same array as in Epitome.critical_points, 
 	## we take the marks as marking difficulties.
 	## remark: if in the critical points we had two marks, how desirable and 
 	## how difficult, there would be only a slight change and only here, in row 216.
 	## the output is again an array, one line per alternative, like ["doctor", 3]
 		
-		critical_difficulties_results = []
+		critical_requirements_results = []
+		
+	  critical_array = Epitome.critical_array(user)
 		
 		critical_array.each do |this_alternative|
-	
+	  inner_alternative = this_alternative[1]
 			## First, we count +es (3), -es (1) and +-es (2)
 			## this_mark can be nil; then it counts as +- (ie default, neutral)
 			plusses = 0
 			minuses = 0
 			zeros = 0
-			(1..7).each do |i|
-				this_mark = this_alternative[i][1]
+			inner_alternative.each do |inside|
+				this_mark = inside[1]
 				zeros += 1
 				if this_mark > 2
 					zeros -= 1
@@ -322,60 +332,110 @@ module Epitome
 	
 			## Now we have the numbers of +es etc.
 			## we can begin to find out how much it is desired (from the mirror seen)
-			dificulties_result = []
-			difficulties_mark = 2
+			requiremens_result = []
+			requirements_mark = 2
 			if (minuses > 2)
-				difficulties_mark = 1
+				requirements_mark = 1
 			end
 			if (minuses > 1 && zeros >=2)
-				difficulties_mark = 1
+				requirements_mark = 1
 			end
 			if (zeros < 2 && minuses < 2)
-				critical_mark = 3
+				requirements_mark = 3
 			end
 			
-			critical_result = [this_alternative[0], critical_mark]
-			critical_difficulties_results.push(critical_result)
-	
-			return critical_difficulties_results
-		end
+			critical_result = [this_alternative[0], requirements_mark]
+			critical_requirements_results.push(critical_result)
+	  end
+		return critical_requirements_results
+		
 	end
 	
-	def combine_difficulties(x,y)
-	## x come from wishes, y from critical points
-		if x == 1 && y == 1
-			return 1
-		end
-		if x == 2 && y == 1
-			return 1
-		end
-		if x == 1 && y == 2
-			return 1
-		end
-		if x == 3 && y == 3
-			return 3
-		end
-		if x == 3 && y == 2
-			return 3
-		end
-		return 2
+
+	def Epitome.combine_requirements(x,y)
+	      ## x come from requirements, y from critical points
+		    if x == 1 && y == 1
+			     return 1
+		    end
+		    if x == 2 && y == 1
+			     return 1
+		    end
+		    if x == 1 && y == 2
+			     return 1
+		    end
+		    if x == 3 && y == 3
+			     return 3
+		    end
+		    if x == 3 && y == 2
+			     return 3
+		    end
+		    return 2
 	end
-	
-	def Epitome.combines_difficulties(difficulties, criticals)
+	   
+	   
+	def Epitome.combines_requirements(requirements, criticals)
 	## finally, we combine the outputs from Epitome.difficulties and
 	## Epitome.critical_difficulties to have a final difficulties array
 	## with lines like ["nurse", 2]
-		combined_difficulties = []
+		combined_requirements = []
 		criticals.each do |line|
 			critical_mark = line[1]
-			difficulties.each do |difficulty|
-				if difficulty[0] == line[0]
-					diff_mark = difficulty[1]
-					combined_mark = combine_difficulties(diff_mark, critical_mark)
-					combined_difficulties.push([line[0], combined_mark])
+			requirements.each do |requirement|
+				if requirement[0] == line[0]
+					diff_mark = requirement[1]
+					combined_mark = Epitome.combine_requirements(diff_mark, critical_mark)
+					combined_requirements.push([line[0], combined_mark])
 				end
 			end
 		end
-		return combined_difficulties
+		return combined_requirements
 	end
+	
+	def Epitome.final_combination(x,y)
+	
+		if (x+y) <4
+			return 1
+		end
+		if x > 1 && y == 3
+			return 3
+		end
+		
+		return 2
+		
+	end
+	
+	def Epitome.final_score(user)
+		
+		wisheds = Epitome.wishes(user)
+		criticals = Epitome.critical_points(user)
+		combined_wishes = Epitome.combined_wishes(wisheds, criticals)
+		
+		requirements = Epitome.requirement_points(user)
+		critical_requirements = Epitome.critical_requirements(user)
+		combined_requirements = Epitome.combines_requirements(requirements, critical_requirements)
+		
+		
+		wish_hash = {}
+		combined_wishes.each do |wishline|
+			wish_hash[wishline[0]] = wishline[1]
+		end
+		
+		requirement_hash = {}
+		combined_requirements.each do |reqline|
+			requirement_hash[reqline[0]] = reqline[1]
+	  end
+		
+		result_array = []
+		combined_wishes.each do |wishline|
+			alt_name = wishline[0]
+			x = wish_hash[wishline[0]]
+			y = requirement_hash[wishline[0]] 
+			final_score = Epitome.final_combination(x,y)
+			alt_hash = {name: alt_name, wished: x, required: y, final: final_score}
+		  result_array.push(alt_hash)
+		end
+	return result_array
+	end
+	
 end
+
